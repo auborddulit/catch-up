@@ -62,6 +62,9 @@ Votre proposition est de prendre **les UP mesurées avec votre cadence habituell
 
 ## 6. Production : une session par lot
 
+L'essentiel de cette section tient sur la [fiche opérateur](fiche-operateur.pdf) (A4, à plastifier).
+
+
 1. Onglet **Session** :
    - saisissez le **n° de lot** (obligatoire), le produit, l'opérateur, la **température des bouteilles** (celle de la chambre froide) et la **cible** ;
    - cliquez sur *Démarrer*.

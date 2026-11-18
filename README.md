@@ -48,6 +48,7 @@ Télécharger le projet : `git clone https://github.com/auborddulit/compteur-UP.
 3. Flasher le firmware et faire la première configuration : [docs/installation.md](docs/installation.md).
 4. Étalonner les sondes, faire des mesures d'essai, étalonner le modèle, fixer la cible : [docs/utilisation.md](docs/utilisation.md).
 5. Comprendre le calcul et ses limites : [docs/principe.md](docs/principe.md).
+6. Imprimer et plastifier la **fiche opérateur** (A4), à accrocher près du bain : [docs/fiche-operateur.pdf](docs/fiche-operateur.pdf). Avant l'impression, compléter le nom et le téléphone du responsable.
 
 ## Licence
 
