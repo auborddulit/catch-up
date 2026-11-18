@@ -1,6 +1,6 @@
 # Matériel
 
-Prix indicatifs (fin 2026, revendeurs en ligne courants), TTC. Total **≈ 100 à 130 €** hors thermomètre de référence.
+Prix indicatifs (fin 2026, revendeurs en ligne courants), TTC. Total **≈ 110 à 140 €** hors thermomètre de référence.
 
 ## Liste des composants
 
@@ -17,7 +17,7 @@ Prix indicatifs (fin 2026, revendeurs en ligne courants), TTC. Total **≈ 100 �
 | 9 | **Buzzer actif 5 V** (≥ 85 dB) | 1 | 1 € | Ou une sirène / un gyrophare 12 V via un module MOSFET (voir câblage). |
 | 10 | Transistor NPN **2N2222** ou **S8050** + résistance **1 kΩ** | 1 | 0,5 € | Commande du buzzer. |
 | 11 | Résistances **4,7 kΩ** | 4 | 0,5 € | Une par sonde (tirage du bus 1-Wire). |
-| 12 | Connecteurs aviation **GX12 3 broches** (embase + fiche) | 4 | 7 € | Une prise par sonde : on débranche le témoin pour le ranger. |
+| 12 | **Prise M12 IP67 pour le témoin** : embase femelle 4 broches codée A (ex. Lutronic 1220 04 T16CW) + fiche mâle à vis (ex. Delock 60533) + **capuchon de protection M12 avec chaînette** | 1 jeu | 20 € | On débranche le témoin pour le ranger en chambre froide. La prise n'est étanche (IP67) que fiche vissée ou capuchon vissé. Les 3 sondes de bain, fixes, passent par des presse-étoupes, sans prise. |
 | 13 | Connecteur **GX12 2 broches** | 1 | 2 € | Pour le bouton déporté. |
 | 14 | **Boîtier ABS IP65** ≈ 160 × 120 × 70 mm, couvercle transparent si possible | 1 | 12 € | L'écran se lit à travers le couvercle. |
 | 15 | Presse-étoupes PG7 / PG9 | 3 | 3 € | Alimentation, câble du bouton. |

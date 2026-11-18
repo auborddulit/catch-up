@@ -1,7 +1,7 @@
 // config.h — Brochage et constantes matérielles.
 #pragma once
 
-#define FW_VERSION "1.1.0"
+#define FW_VERSION "1.1.1"
 #define DEVICE_NAME "compteur-up"   // nom réseau : http://compteur-up.local
 
 // --- Sondes DS18B20 : une broche (un bus 1-Wire) par sonde -----------------

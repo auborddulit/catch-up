@@ -63,7 +63,7 @@
 <polyline points="345,314 345,310 300,310" class="w3"/><circle cx="300" cy="310" r="3" fill="#d32f2f"/>
 <text x="355" y="328" class="s">4,7 kΩ</text>
 <text x="258" y="560" class="s">GND</text>
-<text x="306" y="96" class="s">3,3 V</text><text x="30" y="92" class="t">Sondes DS18B20 (prises GX12)</text>
+<text x="306" y="96" class="s">3,3 V</text><text x="30" y="92" class="t">Sondes DS18B20 (témoin sur prise M12, bain par presse-étoupes)</text>
 
 <rect x="760" y="95" width="300" height="50" rx="6" class="box"/><text x="770" y="115" class="t">Écran OLED 1,3" SH1106 (I2C)</text><text x="770" y="133" class="s">VCC → 3V3 · GND → GND · SDA → 21 · SCL → 22</text>
 <rect x="760" y="155" width="300" height="50" rx="6" class="box"/><text x="770" y="175" class="t">Horloge DS3231 (I2C)</text><text x="770" y="193" class="s">VCC → 3V3 · GND → GND · SDA → 21 · SCL → 22</text>

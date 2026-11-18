@@ -27,7 +27,7 @@ Chaque sonde a son propre bus 1-Wire. L'appareil sait donc **quelle sonde est o�
 
 ## Conseils de montage
 
-- **Prises GX12** sur le boîtier : une par sonde, avec une étiquette (T, B1, B2, B3). Gardez la même affectation fil → broche partout : 1 = GND, 2 = DATA, 3 = VDD.
+- **Témoin sur prise M12** (IP67, 4 broches codée A, 3 utilisées : 1 = VDD, 3 = GND, 4 = DATA) : on le débranche pour le ranger en chambre froide. **Capuchon vissé dès que la prise est libre** : elle n'est étanche que fermée. Les **3 sondes de bain** sont fixes et passent par des presse-étoupes, avec une étiquette (B1, B2, B3) sur chaque câble.
 - Soudez les **résistances de 4,7 kΩ côté boîtier**, sur la plaque à pastilles.
 - **Câbles longs** : jusqu'à environ 5 m par sonde, aucun souci avec 4,7 kΩ. En cas de lectures « absente » intermittentes, passez à 2,2 kΩ.
 - Mettez le **boîtier à l'abri des projections**, au-dessus du niveau du bain, et branchez l'alimentation USB sur une prise protégée par un différentiel 30 mA.

@@ -179,7 +179,9 @@ void App::drainEvents() {
                      f1(e.value2, 2) + " UP, rapport " + f1(sess.r, 2) +
                      (sess.r < 1 ? " → cible des caisses suivantes durcie" : " → pas de correction");
           logEvent("TEMOIN", e.crate, m);
-          notify(String("Témoin – lot ") + meta.lot, m, 3, "thermometer");
+          logEvent("INFO", -1, "Le témoin peut être débranché (capuchon sur la prise) et remis en chambre froide");
+          notify(String("Témoin – lot ") + meta.lot,
+                 m + ". Le témoin peut être débranché (capuchon sur la prise).", 3, "thermometer");
           break;
         }
         case up::Ev::RatioLow:

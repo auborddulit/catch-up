@@ -11,7 +11,7 @@ Formatez-la en **FAT32**, puis insérez-la dans le lecteur. L'appareil crée lui
 1. Branchez l'ESP32 en USB sur un ordinateur, avec Chrome ou Edge.
 2. Ouvrez **https://espressif.github.io/esptool-js/**, cliquez sur *Connect* et choisissez le port de la carte.
 3. Cliquez sur *Erase Flash*, puis attendez la fin.
-4. Dans *Flash Address* mettez **0x0**, choisissez le fichier `firmware/bin/compteur-up-v1.1.0-esp32-merged.bin`, puis cliquez sur *Program*.
+4. Dans *Flash Address* mettez **0x0**, choisissez le fichier `firmware/bin/compteur-up-v1.1.1-esp32-merged.bin`, puis cliquez sur *Program*.
 5. Débranchez et rebranchez la carte.
 
 ### Option B : compiler avec l'IDE Arduino (2.x)

@@ -14,7 +14,7 @@ S=[(screen(["L2611-A      09:02","Eau 68.0 67.1 66.2","Témoin -&gt; caisse 1","
 steps=[("Téléphone","Démarrer le lot","<b>Session</b> : n° de lot, T° chambre froide, cible, <b>Démarrer</b>."),
 ("Bouton","Caisse 1 avec le témoin","Témoin dans la caisse 1, entrer la caisse, <b>appuyer</b>."),
 ("Bouton","À chaque DÉCALER","Sortir à gauche, avancer, entrer à droite, <b>appuyer</b>."),
-("Bouton","Caisse 1 sortie","Retirer le témoin, le remettre en chambre froide."),
+("Bouton","Caisse 1 sortie","Quand l'écran affiche « Témoin/modèle » : débrancher le témoin, <b>capuchon sur la prise</b>, témoin en chambre froide."),
 ("Téléphone","Dernière caisse entrée","<b>Fin des entrées</b>, puis continuer au bip."),
 ("Téléphone","« Terminé : clôturer »","<b>Session</b> : <b>Clôturer</b>, imprimer et signer le relevé.")]
 probs=[("Appui en trop","Téléphone : <b>Annuler</b> (dans la minute)."),
