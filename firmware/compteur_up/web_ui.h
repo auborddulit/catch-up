@@ -144,7 +144,7 @@ function render(){
  if(st.mode!='repos')delete $('#sLot').dataset.init;
  if(ses)$('#sessState').textContent=r.finished?'Toutes les caisses sont sorties.':`${r.nOut} caisse(s) sortie(s) sur ${r.nCrates}. Il reste des caisses au bain : « Forcer » les rendra non conformes.`;
  const lc=st.lastClosed||'';
- $('#lastRep').classList.toggle('hide',!lc.startsWith('/sessions'));$('#lastRep').innerHTML=links(lc,'Dernier lot clôturé');
+ $('#lastRep').classList.toggle('hide',!lc.startsWith('/sessions'));if($('#lastRep').dataset.d!==lc){$('#lastRep').dataset.d=lc;$('#lastRep').innerHTML=links(lc,'Dernier lot clôturé')+(lc?`<label>Ajouter un commentaire / une action corrective (horodaté, ajouté au relevé)</label><textarea id="cAdd" rows="2"></textarea><button style="margin-top:6px" onclick="addComment('${lc}',$('#cAdd').value)">Ajouter</button>`:'')}
  $('#mesStart').classList.toggle('hide',st.mode!='repos');$('#mesRun').classList.toggle('hide',!mes);
  if(mes)$('#mesTable').innerHTML=`<tr><td>Position du témoin</td><td>${r.pos>=0?'place '+(r.pos+1):(r.pos==-2?'pas encore entré':'sorti du bain')}</td></tr><tr><td>Température témoin</td><td>${W(0)}</td></tr><tr><td>T° à l'entrée</td><td>${f(r.tw0,2)} °C</td></tr><tr><td>Temps place 1 / 2 / 3</td><td>${r.tPos.map(mmss).join(' / ')}</td></tr><tr><td><b>UP bain</b></td><td><b>${f(r.upBath,2)}</b></td></tr><tr><td>UP bain + air</td><td>${f(r.upTotal,2)}</td></tr><tr><td>Prévision du modèle (bain)</td><td>${f(r.upPred,2)}</td></tr>`;
  $('#lastMes').classList.toggle('hide',!lc.startsWith('/mesures'));$('#lastMes').innerHTML=links(lc,'Dernière mesure')+(lc.startsWith('/mesures')?`<button onclick="fit('${lc}')" style="margin-top:6px">Calibrer le modèle sur cette mesure</button>`:'');
@@ -154,16 +154,17 @@ function render(){
 }
 function links(d,title){if(!d)return'';const u=p=>'/f?p='+encodeURIComponent(d+'/'+p);const s=d.startsWith('/sessions');
  return `<h2>${title}</h2><div class="row"><a href="${u('releve.html')}" target="_blank"><button class="pri">Relevé (imprimer / PDF)</button></a><a href="${u('data.csv')}"><button>data.csv</button></a>${s?`<a href="${u('caisses.csv')}"><button>caisses.csv</button></a>`:''}<a href="${u('events.csv')}"><button>events.csv</button></a></div>`}
-function fillDefaults(){const d=st.def||{};$('#sProd').value=d.produit||'';$('#sT0').value=d.t0??6;$('#sTarget').value=d.target??''}
+function fillDefaults(){const d=st.def||{};$('#sLot').value=d.lot||'';$('#sProd').value=d.produit||'';$('#sOp').value=d.operateur||'';$('#sT0').value=d.t0??6;$('#sTarget').value=d.target??''}
 async function startSession(){const b={lot:$('#sLot').value.trim(),produit:$('#sProd').value,operateur:$('#sOp').value,t0:parseFloat($('#sT0').value),target:parseFloat($('#sTarget').value)};
  if(!b.lot)return toast('N° de lot obligatoire',true);if(isNaN(b.t0)||isNaN(b.target))return toast('T° de départ et cible obligatoires',true);
  if(!confirm(`Démarrer le lot ${b.lot} : cible ${b.target} UP, bouteilles à ${b.t0} °C ?`))return;
- const j=await act('/api/session/start',b);if(j&&!j.error){$('#sLot').value='';go('bord')}}
+ const j=await act('/api/session/start',b);if(j&&!j.error){delete $('#sLot').dataset.init;go('bord')}}
 async function closeSession(force){const j=await act('/api/session/close',{comment:$('#sComment').value,force},force?'Forcer la clôture ? Les caisses encore au bain seront NON CONFORMES.':'Clôturer le lot ?');if(j&&!j.error)$('#sComment').value=''}
+async function addComment(dir,c){if(!c||!c.trim())return toast('Commentaire vide',true);const j=await act('/api/comment',{dir,comment:c},'Ajouter ce commentaire au relevé ? Il sera daté et ne pourra pas être supprimé.');if(j&&!j.error){const e=$('#cAdd');if(e)e.value='';loadHist()}}
 async function loadHist(){const j=await api('/api/history');if(j.error)return toast(j.error,true);const it=(j.items||[]).sort((a,b)=>a.id<b.id?1:-1);
  $('#hist').innerHTML='<tr><th>Date</th><th>Type</th><th>Lot / notes</th><th>Résultat</th><th></th></tr>'+it.map(x=>{const u=p=>'/f?p='+encodeURIComponent(x.dir+'/'+p);const ses=x.type=='session';
  const res=ses?`<span class="${x.statut=='CONFORME'?'ok':(x.statut=='en cours'?'':'nok')}">${esc(x.statut)}</span> ${x.caisses??''} c. · min ${f(x.upMin,1)}`:`${f(x.upBain,2)} UP bain`;
- return `<tr><td>${esc(x.debut||x.id)}</td><td>${ses?'lot':'mesure'}</td><td>${esc(ses?x.lot:x.notes)}</td><td>${res}</td><td><a href="${u('releve.html')}" target="_blank">relevé</a> · <a href="${u('data.csv')}">csv</a>${ses?'':` · <a href="#" onclick="fit('${x.dir}');return false">calibrer</a>`}</td></tr>`}).join('')}
+ return `<tr><td>${esc(x.debut||x.id)}</td><td>${ses?'lot':'mesure'}</td><td>${esc(ses?x.lot:x.notes)}</td><td>${res}</td><td><a href="${u('releve.html')}" target="_blank">relevé</a> · <a href="${u('data.csv')}">csv</a>${ses?` · <a href="#" onclick="const c=prompt('Commentaire / action corrective pour le lot ${esc(x.lot)} :');if(c)addComment('${x.dir}',c);return false">commenter</a>`:` · <a href="#" onclick="fit('${x.dir}');return false">calibrer</a>`}</td></tr>`}).join('')}
 async function fit(dir){toast('Calcul en cours…');const j=await api('/api/fit',{dir});go('mesure');const c=$('#fitCard');c.classList.remove('hide');
  if(j.k1===undefined){c.innerHTML='<h2>Étalonnage du modèle</h2><p class="nok">'+esc(j.error)+'</p>';return}
  c.innerHTML=`<h2>Étalonnage du modèle</h2><table><tr><td>Mesure</td><td>${esc(dir)}</td></tr><tr><td>Points au bain</td><td>${j.n} (pas ${f(j.dt,1)} s)</td></tr><tr><td>k1 / k2 proposés</td><td>${j.k1.toFixed(5)} / ${j.k2.toFixed(5)} /s</td></tr><tr><td>Écart moyen modèle / témoin</td><td>${f(j.rmse,2)} °C</td></tr><tr><td>UP mesurées (bain)</td><td>${f(j.upMeas,2)}</td></tr><tr><td>UP prévues par le nouveau modèle</td><td>${f(j.upPred,2)}</td></tr><tr><td>UP prévues par le modèle actuel</td><td>${f(j.upCurrent,2)}</td></tr></table>${j.error?'<p class="nok">'+esc(j.error)+'</p>':''}
@@ -173,6 +174,7 @@ async function setTime(){await act('/api/time',{epoch:Math.floor(Date.now()/1000
 const FIELDS=[['Réseau',[['wifiSsid','Wi-Fi : nom du réseau'],['wifiPass','Wi-Fi : mot de passe','password'],['adminPass','Mot de passe administrateur (4 car. min.)','password']]],
  ['Notifications ntfy',[['ntfyServer','Serveur'],['ntfyTopic','Sujet (long et difficile à deviner)'],['ntfyAlarms','Alarmes','checkbox'],['ntfyShift','Chaque décalage','checkbox'],['ntfyEnd','Fin de lot','checkbox']]],
  ['Calcul des UP',[['target','Cible par défaut (UP)','number'],['upMax','Alerte au-delà de (UP)','number'],['z','z (°C)','number'],['tRef','T° de référence (°C)','number'],['tCount','Seuil de comptage (°C)','number'],['nominalS','Décalage nominal – mode mesure / secours (s)','number'],['rAlarm','Alerte si mesure/modèle <','number']]],
+ ['Lots',[['lotPrefix','Préfixe des n° de lot (ex. L)'],['lotNext','Prochain n° de lot','number'],['operateur','Opérateur par défaut'],['produit','Produit par défaut']]],
  ['Bain',[['bathMin','Alarme si eau sous (°C)','number'],['bathMinDelayS','pendant plus de (s)','number']]],
  ['Modèle (bouteille virtuelle)',[['k1','k1 (/s)','number'],['k2','k2 (/s)','number'],['modelSource','Origine'],['modelDate','Date']]]];
 async function loadSettings(){pass=$('#pass').value;const d=await api('/api/settings');if(d.error)return toast(d.error,true);setLoaded=d;

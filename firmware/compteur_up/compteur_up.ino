@@ -46,6 +46,9 @@ void setup() {
   settingsLoad();
   Wire.begin(PIN_I2C_SDA, PIN_I2C_SCL);
   ioBegin();
+  // carte SD désélectionnée avant d'initialiser l'écran (bus SPI partagé)
+  pinMode(PIN_SD_CS, OUTPUT);
+  digitalWrite(PIN_SD_CS, HIGH);
   displayBegin();
   displayMessage("Compteur UP", "v" FW_VERSION);
   if (!sdBegin()) Serial.println("Carte SD absente");
@@ -64,6 +67,7 @@ void loop() {
   Btn b = buttonPoll();
   if (b == Btn::Short) app.onButton(false);
   else if (b == Btn::Long) app.onButton(true);
+  uiOnKey(keyPoll());
   if (sensorsUpdate()) app.onSample();
   webLoop();
   clockLoop();

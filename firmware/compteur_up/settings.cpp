@@ -39,7 +39,10 @@ void Settings::toJson(JsonObject o, bool withSecrets) const {
   for (int i = 0; i < NPROBE; i++) a.add(offset[i]);
   o["calDate"] = calDate;
   o["produit"] = produit;
+  o["operateur"] = operateur;
   o["t0"] = t0;
+  o["lotPrefix"] = lotPrefix;
+  o["lotNext"] = lotNext;
 }
 
 void Settings::fromJson(JsonObjectConst o) {
@@ -65,7 +68,11 @@ void Settings::fromJson(JsonObjectConst o) {
     for (int i = 0; i < NPROBE && i < (int)a.size(); i++) offset[i] = a[i].as<float>();
   cp(calDate, sizeof calDate, o["calDate"]);
   cp(produit, sizeof produit, o["produit"]);
+  cp(operateur, sizeof operateur, o["operateur"]);
   num(t0, o["t0"]);
+  cp(lotPrefix, sizeof lotPrefix, o["lotPrefix"]);
+  num(lotNext, o["lotNext"]);
+  if (lotNext < 1) lotNext = 1;
   // garde-fous
   if (z < 1 || z > 30) z = 6.94f;
   if (k1 <= 0 || k1 > 1) k1 = 0.006f;
@@ -97,4 +104,20 @@ void settingsSave() {
   pr.begin("cup", false);
   pr.putString("cfg", s);
   pr.end();
+}
+
+String lotName(int32_t n) {
+  char b[24];
+  snprintf(b, sizeof b, "%s%04ld", settings.lotPrefix, (long)n);
+  return String(b);
+}
+
+void noteLotUsed(const String& lot) {
+  String pre = settings.lotPrefix;
+  if (!lot.startsWith(pre) || lot.length() <= pre.length()) return;
+  String rest = lot.substring(pre.length());
+  for (size_t i = 0; i < rest.length(); i++)
+    if (!isdigit((unsigned char)rest[i])) return;
+  long n = rest.toInt();
+  if (n + 1 > settings.lotNext) settings.lotNext = n + 1;
 }

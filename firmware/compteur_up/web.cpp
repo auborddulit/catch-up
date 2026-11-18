@@ -63,19 +63,18 @@ static void hSessionStart() {
   if (!body(d)) return reply("Requête invalide");
   reply(app.startSession(d["lot"] | "", d["produit"] | "", d["operateur"] | "", d["t0"] | NAN,
                          d["target"] | NAN));
-  // mémorise les dernières valeurs comme valeurs par défaut du formulaire
-  if (app.mode == Mode::Session) {
-    strlcpy(settings.produit, d["produit"] | "", sizeof settings.produit);
-    float t0 = d["t0"] | NAN;
-    if (!std::isnan(t0)) settings.t0 = t0;
-    settingsSave();
-  }
 }
 
 static void hSessionClose() {
   JsonDocument d;
   if (!body(d)) return reply("Requête invalide");
   reply(app.closeSession(d["comment"] | "", d["force"] | false));
+}
+
+static void hComment() {
+  JsonDocument d;
+  if (!body(d)) return reply("Requête invalide");
+  reply(app.addComment(d["dir"] | "", d["comment"] | ""));
 }
 
 static void hMesureStart() {
@@ -269,6 +268,7 @@ void webBegin() {
   server.on("/api/ack", HTTP_POST, hAck);
   server.on("/api/session/start", HTTP_POST, hSessionStart);
   server.on("/api/session/close", HTTP_POST, hSessionClose);
+  server.on("/api/comment", HTTP_POST, hComment);
   server.on("/api/mesure/start", HTTP_POST, hMesureStart);
   server.on("/api/mesure/stop", HTTP_POST, hMesureStop);
   server.on("/api/history", HTTP_GET, hHistory);

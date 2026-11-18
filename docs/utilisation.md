@@ -76,26 +76,36 @@ La cible se règle dans la *Session* au démarrage de chaque lot. La valeur par 
 
 Votre proposition est de prendre **les UP mesurées avec votre cadence habituelle (la plus faible des mesures) + 10 %**. C'est une démarche raisonnable pour **ne pas faire moins bien qu'aujourd'hui**. Elle repose cependant sur l'hypothèse que le procédé actuel est suffisant. L'absence de problème sur environ 9000 bouteilles est un bon signe, mais ce n'est pas une validation. Faites confirmer la cible dans le plan HACCP (voir [haccp.md](haccp.md)).
 
-## 6. Production : une session par lot
+## 6. Production : une session par lot (sans téléphone)
 
-L'essentiel de cette section tient sur la [fiche opérateur](fiche-operateur.pdf) (A4, à plastifier).
+L'essentiel de cette section tient sur la [fiche opérateur](fiche-operateur.pdf) (A4, à plastifier). Tout se fait **sur l'appareil**, avec le gros bouton **DÉCALAGE** et les trois petits boutons **▲ ▼ OK**. Le téléphone reste facultatif : notifications, relevés, commentaires.
 
+![Écrans de l'appareil](ecrans.png)
 
-1. Onglet **Session** :
-   - saisissez le **n° de lot** (obligatoire), le produit, l'opérateur, la **température des bouteilles** (celle de la chambre froide) et la **cible** ;
-   - cliquez sur *Démarrer*.
-2. Mettez le **témoin dans la 1re caisse**, à sa position habituelle, entrez la caisse en place 1 et **appuyez sur DÉCALAGE**.
-3. Ensuite, à chaque décalage, **appuyez sur le bouton**. L'appareil suit chaque caisse et :
-   - affiche « Décaler dans ~mm:ss » ;
-   - **bipe chaque seconde et affiche DÉCALER** quand la caisse en sortie a atteint la cible. Décalez puis appuyez, le bip s'arrête.
-   - Pendant le remplissage du tunnel (place de sortie encore vide), l'appareil applique la **cadence d'équilibre**, affichée en permanence comme « cadence prévue ». C'est la durée par place qui donne exactement la cible à une bouteille partant de la température saisie, avec l'eau actuelle des 3 places.
-4. À la **sortie de la caisse témoin**, la mesure réelle est comparée au modèle. Si le modèle était optimiste, la cible des caisses suivantes est **durcie** automatiquement.
-5. **Retirez le témoin** à la sortie du bain : quand la 4e ligne de l'écran affiche « Témoin/modèle », un message du journal et une notification confirment qu'il peut être débranché. Il ne sert plus pour ce lot. Dévissez la fiche, **vissez aussitôt le capuchon de protection sur la prise du boîtier** (la prise n'est étanche que fermée), et remettez la bouteille en chambre froide pour le lot suivant. Ne débranchez jamais le témoin avant : au bout de 30 s sans mesure, le lot serait déclaré non conforme.
-6. Après la **dernière caisse entrée**, appuyez sur *Fin des entrées* sur le téléphone. Les décalages suivants n'ajouteront plus de caisse. Si vous avez oublié et qu'une caisse « fantôme » est apparue (une caisse de trop à l'écran), utilisez *Retirer la dernière caisse* : le retrait est tracé dans le journal.
-7. Quand tout est sorti : onglet *Session* → commentaires et actions correctives éventuelles → **Clôturer**.
-8. Ouvrez le **relevé**, imprimez-le ou enregistrez-le en PDF, puis faites-le viser.
+**Les boutons**
+- **OK** ouvre le menu ; **▲ ▼** choisissent ou modifient une valeur (maintenus : défilement rapide) ; **OK** valide.
+- **OK long** (1 s) : retour en arrière, ou « non » sur un écran de confirmation.
+- **DÉCALAGE** : un appui à chaque décalage. **Appui long** (2 s) : coupe le buzzer 5 minutes.
 
-**Erreur d'appui** : *Annuler* (sur la page web) est possible pendant **60 s**. La caisse revient à sa place et l'annulation est tracée dans le journal.
+**Déroulé**
+1. **OK → Démarrer un lot**. L'appareil propose :
+   - le **n° de lot suivant** (ex. L0128 après L0127 ; ▲▼ pour corriger) ;
+   - la **température des bouteilles** (dernière valeur, ▲▼ par 0,5 °C) ;
+   - la **cible** (valeur des réglages, ▲▼ par 0,5 UP).
+   Un écran récapitulatif suit : **OK = démarrer**.
+2. L'écran affiche « Témoin : caisse 1, puis DÉCALAGE ». Mettez le **témoin dans la 1re caisse**, à sa position habituelle, entrez la caisse en place 1 et **appuyez sur DÉCALAGE**.
+3. Pendant le **remplissage du tunnel** (place de sortie encore vide), l'écran affiche un compte à rebours : l'appareil applique la **cadence d'équilibre** (« cad » en haut de l'écran), calculée pour que chaque caisse reçoive la cible.
+4. Ensuite, l'écran montre en gros les **UP de la caisse en sortie / la cible**, avec une barre de progression, l'eau de la place 3 et le temps restant. Quand la cible est atteinte, l'écran **s'inverse et clignote « DÉCALER »** et le buzzer bipe chaque seconde : décalez, puis **appuyez sur DÉCALAGE**. Le bip s'arrête.
+5. À la **sortie de la caisse témoin**, la mesure réelle est comparée au modèle. Si le modèle était optimiste, la cible des caisses suivantes est **durcie** automatiquement. L'écran affiche alors **« Témoin débranchable »** (en alternance avec l'eau) : dévissez la fiche, **vissez aussitôt le capuchon** sur la prise du boîtier (elle n'est étanche que fermée) et remettez la bouteille en chambre froide. Ne débranchez jamais le témoin avant : au bout de 30 s sans mesure, le lot serait déclaré non conforme.
+6. Après la **dernière caisse entrée** : **OK → Fin des entrées → OK**. Les décalages suivants n'ajouteront plus de caisse. Une caisse de trop apparaît (oubli) ? **OK → Retirer dern. caisse → OK**.
+7. Quand tout est sorti, l'écran affiche « Lot terminé » : **OK → Terminer le lot → OK**. Le relevé est créé sur la carte SD ; l'écran indique si le lot est CONFORME.
+8. Imprimez le **relevé** depuis la page web (onglet *Session* ou *Historique*), puis faites-le viser.
+
+**Erreur d'appui** : **OK → Annuler décalage → OK**, dans la minute. La caisse revient à sa place et l'annulation est tracée dans le journal.
+
+**Commentaires et actions correctives** : on ne tape pas de texte sur l'appareil. Après la clôture, sur la page web : onglet *Session* (dernier lot) ou *Historique* → *commenter*. Le commentaire est **daté**, ajouté au relevé (« Ajouté le … après clôture ») et à `events.csv`, et ne peut pas être supprimé.
+
+**Avec le téléphone**, si vous préférez : tout reste possible depuis la page web (onglets *Session* et *Tableau de bord*), y compris le gros bouton DÉCALAGE à l'écran.
 
 ## 7. Alarmes : que faire ?
 
@@ -109,7 +119,7 @@ L'essentiel de cette section tient sur la [fiche opérateur](fiche-operateur.pdf
 | **Caisse au-dessus du maximum** | Beaucoup d'UP (risque de goût de cuit) | Information seulement. Ne rend pas le lot non conforme. |
 | **Carte SD absente** | Enregistrement impossible | Remettre la carte. |
 
-Un **appui long (2 s)** sur le bouton, ou *Acquitter* sur la page, efface les alarmes mémorisées et coupe le buzzer 5 minutes. Une nouvelle alarme le réactive.
+Sur l'écran d'alarme, **OK** acquitte (efface les alarmes mémorisées et coupe le buzzer 5 minutes). Un **appui long (2 s) sur DÉCALAGE**, ou *Acquitter* sur la page web, fait de même. Une nouvelle alarme réactive le buzzer.
 
 ## 8. Coupure de courant
 
@@ -128,6 +138,7 @@ Chaque lot a son dossier sur la carte SD : `sessions/AAAAMMJJ-HHMM_LOT/`, qui co
 | z | 6,94 °C | Paramètre de la formule des UP |
 | T° de référence | 60 °C | 1 UP = 1 min à cette température |
 | Seuil de comptage | 60 °C | Aucune UP n'est comptée en dessous (prudent) |
+| Préfixe / prochain n° de lot | L / 1 | Numérotation automatique proposée sur l'appareil (L0001, L0002…) |
 | Décalage nominal | 400 s | Minuteur du mode Mesure ; secours si la cadence d'équilibre est incalculable |
 | Alerte si mesure/modèle < | 0,85 | Seuil de l'alarme d'écart |
 | Alarme si eau sous | 64 °C pendant 60 s | Alarme bain froid |

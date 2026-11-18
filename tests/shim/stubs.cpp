@@ -45,3 +45,4 @@ void buzzerSet(Beep) {}
 void buzzerClick() { g_clicks++; }
 void buzzerLoop() {}
 void ledBlink() {}
+Key keyPoll() { return Key::None; }

@@ -6,7 +6,7 @@ Un appareil simple et peu coûteux (≈ 120 € de matériel) pour **mesurer et 
 - **Trois sondes dans le bain**, une par place du tunnel, alimentent une **bouteille virtuelle** pour chaque caisse. L'appareil indique **quand décaler** : dès que la caisse en sortie a atteint la cible.
 - La caisse témoin sert de **contrôle réel à chaque lot**. Si le modèle s'avère trop optimiste, la cible des caisses suivantes est **durcie automatiquement**. Elle n'est jamais assouplie.
 - **Relevé de fin de lot** pour la traçabilité : page imprimable ou PDF, plus des CSV (températures, UP de chaque caisse, événements, statut CONFORME / NON CONFORME).
-- Écran OLED, **gros bouton étanche « DÉCALAGE »**, buzzer, page web locale, **notifications sur téléphone (ntfy)**, reprise automatique après une coupure de courant.
+- **Utilisable sans téléphone** : écran OLED 2,42", **gros bouton « DÉCALAGE »** et trois boutons **▲ ▼ OK** pour démarrer un lot (n° auto-incrémenté), corriger un appui et terminer le lot. Buzzer, page web locale, **notifications facultatives sur téléphone (ntfy)**, reprise automatique après une coupure de courant.
 
 <img src="docs/exemples/releve-lot-exemple.png" width="520" alt="Exemple de relevé de fin de lot">
 
@@ -27,6 +27,12 @@ Un appareil simple et peu coûteux (≈ 120 € de matériel) pour **mesurer et 
 |---|---|
 | **Mesure** (essais) | Le témoin traverse le tunnel. Chaque appui sur le bouton le fait avancer d'une place. Vous obtenez les UP « bain seul » et « bain + air » de votre procédé. Un clic **étalonne le modèle** sur cette courbe. |
 | **Session** (un lot) | Vous saisissez le n° de lot, la température des bouteilles et la cible. Le témoin va dans la 1re caisse. L'appareil suit chaque caisse et sonne **« DÉCALER »** quand la caisse en sortie atteint la cible. À la fin : relevé + CSV. |
+
+## L'écran de l'appareil
+
+Captures produites par le vrai code du firmware (`tests/test_ecrans.cpp`) :
+
+<img src="docs/ecrans.png" width="640" alt="Écrans de l'appareil">
 
 ## Contenu du dépôt
 

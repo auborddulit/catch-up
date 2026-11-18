@@ -53,6 +53,9 @@ class App {
   String closeSession(const String& comment, bool force);
   String stopMesure(const String& comment);
   void acknowledge();
+  // Ajoute un commentaire / une action corrective à un lot déjà clôturé :
+  // horodaté dans events.csv et meta.json, et inséré dans le relevé.
+  String addComment(const String& dir, const String& text);
 
   void statusJson(JsonObject o);
   bool anySounding() const;

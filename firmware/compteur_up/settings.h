@@ -40,7 +40,11 @@ struct Settings {
   char calDate[24] = "";
   // valeurs par défaut du formulaire de lot
   char produit[48] = "";
+  char operateur[32] = "";
   float t0 = 6.0f;
+  // numérotation automatique des lots : préfixe + numéro sur 4 chiffres
+  char lotPrefix[12] = "L";
+  int32_t lotNext = 1;
 
   up::Params params() const;
   void toJson(JsonObject o, bool withSecrets) const;
@@ -50,3 +54,8 @@ struct Settings {
 extern Settings settings;
 void settingsLoad();
 void settingsSave();
+// Prochain n° de lot proposé (ex. « L0128 ») et n° de lot formaté pour un numéro donné
+String lotName(int32_t n);
+// À appeler quand un lot démarre : si son n° suit le format automatique,
+// le compteur passe au suivant.
+void noteLotUsed(const String& lot);

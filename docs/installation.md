@@ -11,7 +11,7 @@ Formatez-la en **FAT32**, puis insérez-la dans le lecteur. L'appareil crée lui
 1. Branchez l'ESP32 en USB sur un ordinateur, avec Chrome ou Edge.
 2. Ouvrez **https://espressif.github.io/esptool-js/**, cliquez sur *Connect* et choisissez le port de la carte.
 3. Cliquez sur *Erase Flash*, puis attendez la fin.
-4. Dans *Flash Address* mettez **0x0**, choisissez le fichier `firmware/bin/compteur-up-v1.1.1-esp32-merged.bin`, puis cliquez sur *Program*.
+4. Dans *Flash Address* mettez **0x0**, choisissez le fichier `firmware/bin/compteur-up-v1.2.0-esp32-merged.bin`, puis cliquez sur *Program*.
 5. Débranchez et rebranchez la carte.
 
 ### Option B : compiler avec l'IDE Arduino (2.x)
@@ -72,4 +72,5 @@ Un serveur ntfy auto-hébergé fonctionne aussi : en `http://` sur le réseau lo
 - Les 4 sondes s'affichent (onglet *Tableau de bord → Sondes*). Une sonde « absente » signale un problème de câblage ou de résistance.
 - *Réglages → Tester le buzzer*.
 - Appuyez sur le gros bouton : sans session en cours, le journal affiche « Aucune session ni mesure en cours ».
+- Appuyez sur **OK** : le menu s'ouvre ; **▲ ▼** déplacent la sélection ; **OK long** revient. Si le menu bouge tout seul, une résistance de 10 kΩ manque sur l'une des broches 34, 35 ou 39.
 - Faites l'**étalonnage des sondes**, puis un **essai à blanc** (voir [utilisation.md](utilisation.md)).

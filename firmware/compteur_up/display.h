@@ -1,5 +1,8 @@
-// display.h — Écran OLED 1,3" (SH1106, 128×64, I2C).
+// display.h — Écran et interface sur l'appareil (boutons ▲ ▼ OK, menus).
 #pragma once
+#include "io.h"
+
 void displayBegin();
-void displayLoop();   // rafraîchit l'écran (au plus 4 fois par seconde)
+void displayLoop();                    // rafraîchit l'écran (au plus 5 fois par seconde)
 void displayMessage(const char* l1, const char* l2 = nullptr);
+void uiOnKey(Key k);                   // touche ▲ ▼ OK

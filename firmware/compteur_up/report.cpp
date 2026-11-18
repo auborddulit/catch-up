@@ -321,7 +321,7 @@ bool writeSessionReport(const RunMeta& m, const up::Session& s, const String& co
 
   o.print("<h2>Commentaires et actions correctives</h2><p>");
   o.print(comment.length() ? htmlEsc(comment) : String("Aucun."));
-  o.print("</p><h2>Visa</h2><table class='sign'><tr><th>Vérifié par</th><th>Date</th><th>Signature</th></tr><tr><td></td><td></td><td></td></tr></table>");
+  o.print("</p><!--AJOUTS--><h2>Visa</h2><table class='sign'><tr><th>Vérifié par</th><th>Date</th><th>Signature</th></tr><tr><td></td><td></td><td></td></tr></table>");
   o.printf("<p class='small'>Relevé généré le %s par compteur-up v%s. Données brutes : data.csv, caisses.csv, events.csv (dossier %s).</p>",
            fmtDateTime(tEnd).c_str(), FW_VERSION, htmlEsc(dir).c_str());
   o.print("</body></html>");
@@ -414,4 +414,43 @@ String fitFromDir(const String& dir, JsonObject out) {
   out["dir"] = dir;
   if (!r.ok) return "Ajustement imprécis (écart moyen > 2 °C) : vérifier la mesure";
   return "";
+}
+
+bool insertReportComment(const String& dir, const String& when, const String& text) {
+  String src = dir + "/releve.html", tmp = dir + "/releve.tmp";
+  File in = SD.open(src, FILE_READ);
+  if (!in) return false;
+  File out = SD.open(tmp, FILE_WRITE);
+  if (!out) { in.close(); return false; }
+  static const char MARK[] = "<!--AJOUTS-->";   // '<' n'apparaît qu'en tête
+  const size_t ML = sizeof(MARK) - 1;
+  String add = "<p><b>Ajouté le " + when + "</b> (après clôture) : " + htmlEsc(text) + "</p>";
+  uint8_t buf[256];
+  size_t nb = 0, m = 0;
+  bool done = false;
+  auto put = [&](uint8_t c) { buf[nb++] = c; if (nb == sizeof buf) { out.write(buf, nb); nb = 0; } };
+  int c;
+  while ((c = in.read()) >= 0) {
+    if (!done && c == (uint8_t)MARK[m]) {
+      if (++m == ML) {                       // marqueur trouvé : on insère avant lui
+        if (nb) { out.write(buf, nb); nb = 0; }
+        out.print(add);
+        for (size_t k = 0; k < ML; k++) put(MARK[k]);
+        done = true;
+        m = 0;
+      }
+      continue;
+    }
+    for (size_t k = 0; k < m; k++) put(MARK[k]);   // début de marqueur non confirmé
+    m = 0;
+    if (!done && c == '<') { m = 1; continue; }
+    put((uint8_t)c);
+  }
+  for (size_t k = 0; k < m; k++) put(MARK[k]);
+  if (nb) out.write(buf, nb);
+  in.close();
+  out.close();
+  if (!done) { SD.remove(tmp); return false; }
+  SD.remove(src);
+  return SD.rename(tmp, src);
 }

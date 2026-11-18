@@ -421,6 +421,12 @@ String App::startSession(const String& lot, const String& produit, const String&
                             " UP, bouteilles à " + f1(t0, 1) + " °C");
   logEvent("INFO", -1, "Mettre le témoin dans la 1re caisse, entrer la caisse et appuyer sur DÉCALAGE");
   persist();
+  // valeurs proposées au lot suivant
+  if (produit.length()) strlcpy(settings.produit, produit.c_str(), sizeof settings.produit);
+  if (op.length()) strlcpy(settings.operateur, op.c_str(), sizeof settings.operateur);
+  settings.t0 = t0;
+  noteLotUsed(lot);
+  settingsSave();
   return "";
 }
 
@@ -494,6 +500,33 @@ String App::stopMesure(const String& comment) {
   ready = lastReady = false;
   for (int i = 0; i < AL_COUNT; i++) alarms[i] = Alarm();
   updateBuzzer();
+  return "";
+}
+
+String App::addComment(const String& dir, const String& text) {
+  String t = text;
+  t.trim();
+  if (!t.length()) return "Commentaire vide";
+  if (t.length() > 600) return "Commentaire trop long (600 caractères au plus)";
+  if (dir.indexOf("..") >= 0 || !dir.startsWith("/sessions/") || !SD.exists(dir + "/meta.json"))
+    return "Lot introuvable";
+  if (mode == Mode::Session && dir == meta.dir)
+    return "Lot en cours : ajouter le commentaire à la clôture";
+  uint32_t now = nowEpoch();
+  String when = fmtDateTime(now);
+  appendLine(dir + "/events.csv", when + ",COMMENTAIRE,," + csvField(t));
+  // meta.json : liste « ajouts »
+  JsonDocument d;
+  if (!deserializeJson(d, readText(dir + "/meta.json", 16384))) {
+    JsonArray a = d["ajouts"].is<JsonArray>() ? d["ajouts"].as<JsonArray>() : d["ajouts"].to<JsonArray>();
+    JsonObject x = a.add<JsonObject>();
+    x["date"] = when;
+    x["texte"] = t;
+    String s;
+    serializeJsonPretty(d, s);
+    writeText(dir + "/meta.json", s);
+  }
+  if (!insertReportComment(dir, when, t)) return "Commentaire enregistré, mais relevé non mis à jour";
   return "";
 }
 
@@ -617,6 +650,8 @@ void App::statusJson(JsonObject o) {
   df["target"] = settings.target;
   df["t0"] = settings.t0;
   df["produit"] = settings.produit;
+  df["operateur"] = settings.operateur;
+  df["lot"] = lotName(settings.lotNext);
   JsonArray pr = o["probes"].to<JsonArray>();
   for (int i = 0; i < NPROBE; i++) {
     const ProbeState& p = probe(i);

@@ -3,3 +3,6 @@ tests/test_core
 tests/test_firmware
 .pio/
 .vscode/
+tests/test_ecrans
+tests/libu8g2.a
+tests/u8g2obj/
