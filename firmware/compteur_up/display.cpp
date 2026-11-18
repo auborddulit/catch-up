@@ -93,7 +93,7 @@ void displayLoop() {
       const up::Crate& c = app.sess.crates[i];
       l3 = String("Sortie C") + c.id + " " + String(app.sess.upNow(c), 1) + "/" + String(app.sess.p.target, 0) + " UP";
     } else {
-      l3 = "Remplissage du tunnel";
+      l3 = String("Remplissage ") + mmss(app.sess.eqS) + "/place";
     }
     if (app.sess.started && app.sess.nCrates > 0 && app.sess.crates[0].pos >= 0) {
       const up::Crate& w = app.sess.crates[0];

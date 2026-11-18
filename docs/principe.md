@@ -29,7 +29,13 @@ eau du bain ──k1──► périphérie de la bouteille ──k2──► cœ
 
 Le décalage est indiqué quand **la caisse en place 3 (sortie) a atteint la cible**. Chaque caisse, à son tour en sortie, impose donc sa propre durée. Si le bain baisse, le décalage est retardé. S'il est plus chaud, il est avancé.
 
-Pendant le remplissage du tunnel (place 3 vide), l'appareil applique le décalage nominal.
+Pendant le remplissage du tunnel (place 3 vide), aucune caisse ne peut dicter le décalage. L'appareil calcule alors la **cadence d'équilibre** : la durée T par place telle qu'une bouteille virtuelle partant de la température saisie, et passant T dans l'eau de chacune des 3 places, reçoive exactement la cible (après correction par le témoin, s'il y en a une). La recherche se fait par dichotomie. L'eau de chaque place est lissée sur environ 5 minutes, et le calcul est refait toutes les 30 s. Ainsi :
+
+- une cible plus haute, ou un bain plus froid, allonge la cadence dès la 1re caisse ;
+- les premières caisses arrivent en sortie à peu près à la cible, sans sous-chauffe ni sur-cuisson ;
+- la sécurité ne dépend pas de ce calcul : en sortie, chaque caisse attend toujours d'avoir atteint la cible.
+
+Le décalage nominal (réglage, 6 min 40 par défaut) ne sert plus qu'en secours (sondes de bain absentes) et comme minuteur du mode Mesure.
 
 ## Le contrôle par le témoin
 

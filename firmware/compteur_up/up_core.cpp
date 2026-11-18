@@ -26,6 +26,8 @@ void Session::begin(const Params& prm, float t0_, uint32_t now) {
   rKnown = false;
   r = 1;
   witnessFaulted = false;
+  for (int i = 0; i < NPOS; i++) bathAvg[i] = NAN;
+  eqS = -1;
   nCrates = 0;
   for (int i = 0; i < NPOS; i++) slot[i] = -1;
   u = Undo();
@@ -59,6 +61,20 @@ float Session::upNow(const Crate& c) const {
 
 void Session::step(uint32_t now, float dt, const Inputs& in) {
   if (dt <= 0) return;
+  // eau lissée par place (moyenne glissante exponentielle, 5 min)
+  {
+    float a = 1.0f - expf(-dt / 300.0f);
+    bool ok = true;
+    for (int s = 0; s < NPOS; s++) {
+      float tw = effectiveBath(in, s);
+      if (std::isnan(tw)) { ok = false; continue; }
+      bathAvg[s] = std::isnan(bathAvg[s]) ? tw : bathAvg[s] + a * (tw - bathAvg[s]);
+      if (std::isnan(bathAvg[s])) ok = false;
+    }
+    // recalcul toutes les 30 s (et immédiatement au début)
+    if (!ok) eqS = -1;
+    else if (eqS < 0 || now - eqAt >= 30) { eqS = equilibriumInterval(bathAvg); eqAt = now; }
+  }
   for (int s = 0; s < NPOS; s++) {
     int i = slot[s];
     if (i < 0) continue;
@@ -199,6 +215,38 @@ bool Session::finished() const {
   return true;
 }
 
+float Session::equilibriumInterval(const float tw[NPOS]) const {
+  float target = p.target / rc();
+  // UP reçues pour une durée T par place
+  const float h = 5.0f;
+  const float a1 = expf(-p.k1 * h), a2 = expf(-p.k2 * h);
+  auto upFor = [&](float T) {
+    int n = (int)(T / h);
+    float ts = t0, tc = t0, upv = 0, rOld = puPerSecond(tc, p);
+    for (int s = 0; s < NPOS; s++) {
+      float w = tw[s];
+      for (int i = 0; i < n; i++) {
+        float tsOld = ts;
+        ts = w + (ts - w) * a1;
+        float tsAvg = 0.5f * (tsOld + ts);
+        tc = tsAvg + (tc - tsAvg) * a2;
+        float r = puPerSecond(tc, p);
+        upv += 0.5f * (rOld + r) * h;
+        rOld = r;
+      }
+    }
+    return upv;
+  };
+  float lo = 30, hi = 3600;
+  if (upFor(hi) < target) return -1;
+  if (upFor(lo) >= target) return lo;
+  for (int i = 0; i < 18; i++) {   // dichotomie : précision < 1 s
+    float mid = 0.5f * (lo + hi);
+    if (upFor(mid) >= target) hi = mid; else lo = mid;
+  }
+  return floorf(hi / h) * h;   // durée réellement simulée (multiple du pas)
+}
+
 bool Session::ready(uint32_t now) const {
   if (!started) return false;
   int i = slot[NPOS - 1];
@@ -206,7 +254,7 @@ bool Session::ready(uint32_t now) const {
     // place de sortie vide (remplissage du tunnel) : décalage nominal
     bool any = false;
     for (int s = 0; s < NPOS; s++) if (slot[s] >= 0) any = true;
-    return any && (float)(now - lastShift) >= p.nominalS;
+    return any && (float)(now - lastShift) >= fillInterval();
   }
   const Crate& c = crates[i];
   return upNow(c) >= p.target;
@@ -216,7 +264,7 @@ float Session::etaSeconds(uint32_t now, const Inputs& in) const {
   if (!started) return -1;
   int i = slot[NPOS - 1];
   if (i < 0) {
-    float e = p.nominalS - (float)(now - lastShift);
+    float e = fillInterval() - (float)(now - lastShift);
     return e < 0 ? 0 : e;
   }
   const Crate& c = crates[i];

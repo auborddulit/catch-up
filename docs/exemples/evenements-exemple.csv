@@ -3,49 +3,49 @@ horodatage,type,caisse,message
 2026-11-18 13:10:40,INFO,,"Mettre le témoin dans la 1re caisse, entrer la caisse et appuyer sur DÉCALAGE"
 2026-11-18 13:10:52,DECALAGE,,Décalage (bouton)
 2026-11-18 13:10:52,ENTREE,1,Caisse 1 entrée en place 1 (avec le témoin)
-2026-11-18 13:17:40,DECALAGE,,Décalage (bouton)
-2026-11-18 13:17:40,ENTREE,2,Caisse 2 entrée en place 1
-2026-11-18 13:24:28,DECALAGE,,Décalage (bouton)
-2026-11-18 13:24:28,ENTREE,3,Caisse 3 entrée en place 1
+2026-11-18 13:17:20,DECALAGE,,Décalage (bouton)
+2026-11-18 13:17:20,ENTREE,2,Caisse 2 entrée en place 1
+2026-11-18 13:23:38,DECALAGE,,Décalage (bouton)
+2026-11-18 13:23:38,ENTREE,3,Caisse 3 entrée en place 1
 2026-11-18 13:26:04,ALARME,,Bain place 1 trop froid : 62.9 °C < 64.0 °C
 2026-11-18 13:29:02,FIN_ALARME,,Bain place 1 trop froid : 63.0 °C < 64.0 °C
-2026-11-18 13:30:38,DECALAGE,,Décalage (bouton)
-2026-11-18 13:30:38,TEMOIN,1,"Témoin (caisse 1) : 34.35 UP mesurées, modèle 45.04 UP, rapport 0.76 → cible des caisses suivantes durcie"
-2026-11-18 13:30:38,ALARME,,Écart témoin / modèle important (rapport 0.76) : refaire un étalonnage en mode mesure
-2026-11-18 13:30:38,SORTIE,1,Caisse 1 sortie : 34.35 UP mesurées – CONFORME
-2026-11-18 13:30:38,ENTREE,4,Caisse 4 entrée en place 1
-2026-11-18 13:37:24,DECALAGE,,Décalage (bouton)
-2026-11-18 13:37:24,SORTIE,2,Caisse 2 sortie : 33.97 UP estimées – CONFORME
-2026-11-18 13:37:24,ENTREE,5,Caisse 5 entrée en place 1
-2026-11-18 13:45:00,DECALAGE,,Décalage (bouton)
-2026-11-18 13:45:00,SORTIE,3,Caisse 3 sortie : 33.76 UP estimées – CONFORME
-2026-11-18 13:45:00,ENTREE,6,Caisse 6 entrée en place 1
-2026-11-18 13:45:00,DECALAGE,,Décalage (bouton)
-2026-11-18 13:45:00,SORTIE,4,Caisse 4 sortie : 4.48 UP estimées – NON CONFORME
-2026-11-18 13:45:00,ALARME,,Caisse 4 sortie avant la cible : 4.48 UP < 32.8 – isoler la caisse
-2026-11-18 13:45:00,ENTREE,7,Caisse 7 entrée en place 1
-2026-11-18 13:45:00,ANNULATION,,Dernier décalage annulé
-2026-11-18 13:45:00,FIN_ALARME,,Sortie avant la cible annulée : caisse remise en place 3
-2026-11-18 13:51:18,DECALAGE,,Décalage (bouton)
-2026-11-18 13:51:18,SORTIE,4,Caisse 4 sortie : 33.78 UP estimées – CONFORME
-2026-11-18 13:51:18,ENTREE,7,Caisse 7 entrée en place 1
-2026-11-18 13:58:14,DECALAGE,,Décalage (bouton)
-2026-11-18 13:58:14,SORTIE,5,Caisse 5 sortie : 33.94 UP estimées – CONFORME
-2026-11-18 13:58:14,ENTREE,8,Caisse 8 entrée en place 1
-2026-11-18 14:05:24,DECALAGE,,Décalage (bouton)
-2026-11-18 14:05:24,SORTIE,6,Caisse 6 sortie : 34.03 UP estimées – CONFORME
-2026-11-18 14:05:24,ENTREE,9,Caisse 9 entrée en place 1
-2026-11-18 14:11:28,DECALAGE,,Décalage (bouton)
-2026-11-18 14:11:28,SORTIE,7,Caisse 7 sortie : 34.06 UP estimées – CONFORME
-2026-11-18 14:11:28,ENTREE,10,Caisse 10 entrée en place 1
-2026-11-18 14:17:58,FIN_ENTREES,,Fin des entrées de caisses
-2026-11-18 14:17:58,DECALAGE,,Décalage (bouton)
-2026-11-18 14:17:58,SORTIE,8,Caisse 8 sortie : 34.11 UP estimées – CONFORME
-2026-11-18 14:25:06,DECALAGE,,Décalage (bouton)
-2026-11-18 14:25:06,SORTIE,9,Caisse 9 sortie : 33.89 UP estimées – CONFORME
+2026-11-18 13:30:30,DECALAGE,,Décalage (bouton)
+2026-11-18 13:30:30,TEMOIN,1,"Témoin (caisse 1) : 34.19 UP mesurées, modèle 45.03 UP, rapport 0.76 → cible des caisses suivantes durcie"
+2026-11-18 13:30:30,ALARME,,Écart témoin / modèle important (rapport 0.76) : refaire un étalonnage en mode mesure
+2026-11-18 13:30:30,SORTIE,1,Caisse 1 sortie : 34.19 UP mesurées – CONFORME
+2026-11-18 13:30:30,ENTREE,4,Caisse 4 entrée en place 1
+2026-11-18 13:37:02,DECALAGE,,Décalage (bouton)
+2026-11-18 13:37:02,SORTIE,2,Caisse 2 sortie : 34.01 UP estimées – CONFORME
+2026-11-18 13:37:02,ENTREE,5,Caisse 5 entrée en place 1
+2026-11-18 13:44:18,DECALAGE,,Décalage (bouton)
+2026-11-18 13:44:18,SORTIE,3,Caisse 3 sortie : 33.91 UP estimées – CONFORME
+2026-11-18 13:44:18,ENTREE,6,Caisse 6 entrée en place 1
+2026-11-18 13:44:18,DECALAGE,,Décalage (bouton)
+2026-11-18 13:44:18,SORTIE,4,Caisse 4 sortie : 3.20 UP estimées – NON CONFORME
+2026-11-18 13:44:18,ALARME,,Caisse 4 sortie avant la cible : 3.20 UP < 32.8 – isoler la caisse
+2026-11-18 13:44:18,ENTREE,7,Caisse 7 entrée en place 1
+2026-11-18 13:44:18,ANNULATION,,Dernier décalage annulé
+2026-11-18 13:44:18,FIN_ALARME,,Sortie avant la cible annulée : caisse remise en place 3
+2026-11-18 13:51:08,DECALAGE,,Décalage (bouton)
+2026-11-18 13:51:08,SORTIE,4,Caisse 4 sortie : 33.87 UP estimées – CONFORME
+2026-11-18 13:51:08,ENTREE,7,Caisse 7 entrée en place 1
+2026-11-18 13:57:54,DECALAGE,,Décalage (bouton)
+2026-11-18 13:57:54,SORTIE,5,Caisse 5 sortie : 33.80 UP estimées – CONFORME
+2026-11-18 13:57:54,ENTREE,8,Caisse 8 entrée en place 1
+2026-11-18 14:04:52,DECALAGE,,Décalage (bouton)
+2026-11-18 14:04:52,SORTIE,6,Caisse 6 sortie : 34.06 UP estimées – CONFORME
+2026-11-18 14:04:52,ENTREE,9,Caisse 9 entrée en place 1
+2026-11-18 14:11:16,DECALAGE,,Décalage (bouton)
+2026-11-18 14:11:16,SORTIE,7,Caisse 7 sortie : 34.20 UP estimées – CONFORME
+2026-11-18 14:11:16,ENTREE,10,Caisse 10 entrée en place 1
+2026-11-18 14:17:38,FIN_ENTREES,,Fin des entrées de caisses
+2026-11-18 14:17:38,DECALAGE,,Décalage (bouton)
+2026-11-18 14:17:38,SORTIE,8,Caisse 8 sortie : 33.95 UP estimées – CONFORME
+2026-11-18 14:24:36,DECALAGE,,Décalage (bouton)
+2026-11-18 14:24:36,SORTIE,9,Caisse 9 sortie : 33.84 UP estimées – CONFORME
 2026-11-18 14:26:04,ALARME,,Bain place 1 trop froid : 63.2 °C < 64.0 °C
 2026-11-18 14:29:02,FIN_ALARME,,Bain place 1 trop froid : 63.0 °C < 64.0 °C
-2026-11-18 14:31:38,DECALAGE,,Décalage (bouton)
-2026-11-18 14:31:38,SORTIE,10,Caisse 10 sortie : 33.82 UP estimées – CONFORME
-2026-11-18 14:31:38,TERMINE,,Toutes les caisses sont sorties : clôturer la session
-2026-11-18 14:31:38,FIN,,Session clôturée – lot CONFORME
+2026-11-18 14:31:24,DECALAGE,,Décalage (bouton)
+2026-11-18 14:31:24,SORTIE,10,Caisse 10 sortie : 33.69 UP estimées – CONFORME
+2026-11-18 14:31:24,TERMINE,,Toutes les caisses sont sorties : clôturer la session
+2026-11-18 14:31:24,FIN,,Session clôturée – lot CONFORME

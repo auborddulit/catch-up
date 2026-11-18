@@ -665,6 +665,7 @@ void App::statusJson(JsonObject o) {
     m["upMax"] = sess.p.upMax;
     m["canUndo"] = sess.u.valid && now - sess.u.t <= UNDO_MAX_S;
     m["sinceShift"] = sess.started ? now - sess.lastShift : 0;
+    m["eqS"] = sess.eqS;
     JsonArray sl = m["slots"].to<JsonArray>();
     for (int s = 0; s < up::NPOS; s++) {
       JsonObject x = sl.add<JsonObject>();

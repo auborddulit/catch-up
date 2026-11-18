@@ -69,7 +69,7 @@ Votre proposition est de prendre **les UP mesurées avec votre cadence habituell
 3. Ensuite, à chaque décalage, **appuyez sur le bouton**. L'appareil suit chaque caisse et :
    - affiche « Décaler dans ~mm:ss » ;
    - **bipe chaque seconde et affiche DÉCALER** quand la caisse en sortie a atteint la cible. Décalez puis appuyez, le bip s'arrête.
-   - Pendant le remplissage du tunnel (place de sortie encore vide), le décalage nominal (6 min 40) s'applique.
+   - Pendant le remplissage du tunnel (place de sortie encore vide), l'appareil applique la **cadence d'équilibre**, affichée en permanence comme « cadence prévue ». C'est la durée par place qui donne exactement la cible à une bouteille partant de la température saisie, avec l'eau actuelle des 3 places.
 4. À la **sortie de la caisse témoin**, la mesure réelle est comparée au modèle. Si le modèle était optimiste, la cible des caisses suivantes est **durcie** automatiquement.
 5. **Retirez le témoin** à la sortie du bain. Il ne sert plus pour ce lot.
 6. Après la **dernière caisse entrée**, appuyez sur *Fin des entrées* sur le téléphone. Les décalages suivants n'ajouteront plus de caisse. Si vous avez oublié et qu'une caisse « fantôme » est apparue (une caisse de trop à l'écran), utilisez *Retirer la dernière caisse* : le retrait est tracé dans le journal.
@@ -109,7 +109,7 @@ Chaque lot a son dossier sur la carte SD : `sessions/AAAAMMJJ-HHMM_LOT/`, qui co
 | z | 6,94 °C | Paramètre de la formule des UP |
 | T° de référence | 60 °C | 1 UP = 1 min à cette température |
 | Seuil de comptage | 60 °C | Aucune UP n'est comptée en dessous (prudent) |
-| Décalage nominal | 400 s | Cadence pendant le remplissage et minuteur du mode Mesure |
+| Décalage nominal | 400 s | Minuteur du mode Mesure ; secours si la cadence d'équilibre est incalculable |
 | Alerte si mesure/modèle < | 0,85 | Seuil de l'alarme d'écart |
 | Alarme si eau sous | 64 °C pendant 60 s | Alarme bain froid |
 | k1, k2 | 0,006 /s | Modèle (à étalonner) |

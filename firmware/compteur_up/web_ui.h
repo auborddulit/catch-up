@@ -120,7 +120,7 @@ function render(){
  $('#alarms').innerHTML=(st.alarms||[]).map(a=>`<div class="alarm ${a.sounding?'':'info'}">⚠ ${esc(a.msg)} <span class="mute">(${a.since})</span></div>`).join('')+(st.silenced?'<div class="mute">Buzzer coupé temporairement</div>':'');
  const r=st.run,ses=st.mode=='session',mes=st.mode=='mesure';
  $('#runTitle').textContent=ses?'Lot '+r.lot:(mes?'Mesure d\'essai':'Repos');
- $('#runInfo').textContent=ses?`cible ${f(r.target)} UP · ${r.nCrates} caisses · ${r.nNonConformes} NC`:(mes?esc(r.notes):'');
+ $('#runInfo').textContent=ses?`cible ${f(r.target)} UP · cadence prévue ${r.eqS>0?mmss(r.eqS):'–'} · ${r.nCrates} caisses · ${r.nNonConformes} NC`:(mes?esc(r.notes):'');
  const W=s=>{const p=st.probes[s];return p.ok?f(p.v,1)+' °C':'–'};
  let tun='';
  for(const s of [2,1,0]){
@@ -172,7 +172,7 @@ async function applyModel(k1,k2,src){if(!pass)return toast('Ouvrir d\'abord l\'a
 async function setTime(){await act('/api/time',{epoch:Math.floor(Date.now()/1000)})}
 const FIELDS=[['Réseau',[['wifiSsid','Wi-Fi : nom du réseau'],['wifiPass','Wi-Fi : mot de passe','password'],['adminPass','Mot de passe administrateur (4 car. min.)','password']]],
  ['Notifications ntfy',[['ntfyServer','Serveur'],['ntfyTopic','Sujet (long et difficile à deviner)'],['ntfyAlarms','Alarmes','checkbox'],['ntfyShift','Chaque décalage','checkbox'],['ntfyEnd','Fin de lot','checkbox']]],
- ['Calcul des UP',[['target','Cible par défaut (UP)','number'],['upMax','Alerte au-delà de (UP)','number'],['z','z (°C)','number'],['tRef','T° de référence (°C)','number'],['tCount','Seuil de comptage (°C)','number'],['nominalS','Décalage nominal (s)','number'],['rAlarm','Alerte si mesure/modèle <','number']]],
+ ['Calcul des UP',[['target','Cible par défaut (UP)','number'],['upMax','Alerte au-delà de (UP)','number'],['z','z (°C)','number'],['tRef','T° de référence (°C)','number'],['tCount','Seuil de comptage (°C)','number'],['nominalS','Décalage nominal – mode mesure / secours (s)','number'],['rAlarm','Alerte si mesure/modèle <','number']]],
  ['Bain',[['bathMin','Alarme si eau sous (°C)','number'],['bathMinDelayS','pendant plus de (s)','number']]],
  ['Modèle (bouteille virtuelle)',[['k1','k1 (/s)','number'],['k2','k2 (/s)','number'],['modelSource','Origine'],['modelDate','Date']]]];
 async function loadSettings(){pass=$('#pass').value;const d=await api('/api/settings');if(d.error)return toast(d.error,true);setLoaded=d;

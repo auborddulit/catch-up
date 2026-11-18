@@ -162,6 +162,12 @@ class Session {
   float upNow(const Crate& c) const;         // UP retenues en cours (pour affichage)
   float targetFor(const Crate& c) const;     // cible appliquée à cette caisse
   float rc() const { return rKnown ? fminf(1.0f, r) : 1.0f; }
+  // Cadence d'équilibre : durée T telle qu'une bouteille partant de t0 et
+  // passant T à chaque place (eau = moyenne lissée) reçoive la cible.
+  // Renvoie -1 si la cible est inatteignable en 1 h par place.
+  float equilibriumInterval(const float tw[NPOS]) const;
+  // Décalage attendu quand la place de sortie est vide (remplissage du tunnel)
+  float fillInterval() const { return eqS > 0 ? eqS : p.nominalS; }
   bool  finished() const;
   bool  lotConforme() const;
 
@@ -173,6 +179,9 @@ class Session {
   bool   rKnown = false;
   float  r = 1;
   bool   witnessFaulted = false;
+  float  bathAvg[NPOS] = {NAN, NAN, NAN};  // eau lissée (constante de temps 5 min)
+  float  eqS = -1;                         // cadence d'équilibre courante (s)
+  uint32_t eqAt = 0;
   int    nCrates = 0;
   int    slot[NPOS] = {-1, -1, -1};   // index dans crates[], -1 = vide
   Crate  crates[MAX_CRATES];

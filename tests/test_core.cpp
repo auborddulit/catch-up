@@ -76,6 +76,7 @@ static void runSession(float kTrue1, float kTrue2, float kFw1, float kFw2, int n
     if (s.ready(t)) {
       if (pressed >= nCrates && !s.entriesEnded) s.endEntries();
       int out = s.shift(t);
+      if (verbose && pressed <= 2) printf("  décalage %d (remplissage) après %u s, cadence d'équilibre %.0f s\n", pressed, t - lastPress, s.eqS);
       sumInt += t - lastPress; nInt++; lastPress = t;
       pressed++;
       if (witnessIn) { witnessPos++; if (witnessPos >= NPOS) witnessIn = false; }
@@ -144,6 +145,23 @@ static void testEarlyAndUndo() {
   CHECK(s.nCrates == n - 1 && s.slot[0] == -1, "caisse retirée du tunnel");
   Session w; w.begin(p, 6, 0); w.shift(0);
   CHECK(!w.removeLast(), "la caisse témoin ne peut pas être retirée");
+}
+
+static void testEquilibrium() {
+  Params p; p.target = 10;
+  Session s; s.begin(p, 6, 0);
+  float tw[NPOS] = {66, 67, 68};
+  float T = s.equilibriumInterval(tw);
+  // vérification directe : une bouteille passant T par place reçoit la cible
+  Bottle b; b.init(6); float upv = 0;
+  for (int k = 0; k < NPOS; k++)
+    for (float t = 0; t < T; t += 1) { float o = b.tc; b.step(tw[k], 1, p.k1, p.k2); upv += 0.5f * (puPerSecond(o, p) + puPerSecond(b.tc, p)); }
+  printf("Cadence d'équilibre : %.0f s pour %.0f UP (contrôle : %.2f UP)\n", T, p.target, upv);
+  CHECK(fabs(upv - 10) < 0.3, "cadence d'équilibre cohérente (%.2f UP)", upv);
+  p.target = 20; s.begin(p, 6, 0);
+  CHECK(s.equilibriumInterval(tw) > T, "cible plus haute -> cadence plus lente");
+  float cold[NPOS] = {55, 55, 55};
+  CHECK(s.equilibriumInterval(cold) < 0, "cible inatteignable -> -1");
 }
 
 static void testFaults() {
@@ -217,6 +235,7 @@ int main() {
   testBottle();
   testSession();
   testEarlyAndUndo();
+  testEquilibrium();
   testFaults();
   testFit();
   testMeasure();
