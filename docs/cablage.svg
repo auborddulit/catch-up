@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 760" font-family="Arial, Helvetica, sans-serif" font-size="13">
+<rect width="100%" height="100%" fill="#fff"/>
+<style>.box{fill:#f7f9fc;stroke:#334;stroke-width:1.5}.esp{fill:#e8f0fe;stroke:#1a4fa0;stroke-width:2}.w3{stroke:#d32f2f;stroke-width:2;fill:none}.gnd{stroke:#222;stroke-width:2;fill:none}.sig{stroke:#1565c0;stroke-width:2;fill:none}.sig2{stroke:#2e7d32;stroke-width:2;fill:none}.t{fill:#111}.s{font-size:11px;fill:#444}.h{font-size:15px;font-weight:bold}</style>
+<text x="20" y="28" class="h">compteur-up — plan de câblage (ESP32 DevKit)</text>
+<text x="20" y="46" class="s">Rouge : 3,3 V · Noir : GND · Bleu : signaux · Vert : 5 V (VIN). Une résistance de 4,7 kΩ entre DATA et 3,3 V pour chaque sonde.</text>
+<rect x="430" y="90" width="220" height="560" rx="10" class="esp"/>
+<text x="540.0" y="118" text-anchor="middle" class="h">ESP32 DevKit</text>
+<circle cx="430" cy="130" r="4" fill="#1a4fa0"/><text x="440" y="134" class="t">GPIO 4</text>
+<circle cx="430" cy="200" r="4" fill="#1a4fa0"/><text x="440" y="204" class="t">GPIO 16</text>
+<circle cx="430" cy="270" r="4" fill="#1a4fa0"/><text x="440" y="274" class="t">GPIO 17</text>
+<circle cx="430" cy="340" r="4" fill="#1a4fa0"/><text x="440" y="344" class="t">GPIO 25</text>
+<circle cx="430" cy="410" r="4" fill="#1a4fa0"/><text x="440" y="414" class="t">GPIO 26</text>
+<circle cx="430" cy="480" r="4" fill="#1a4fa0"/><text x="440" y="484" class="t">3V3</text>
+<circle cx="430" cy="540" r="4" fill="#1a4fa0"/><text x="440" y="544" class="t">GND</text>
+<circle cx="650" cy="130" r="4" fill="#1a4fa0"/><text x="640" y="134" text-anchor="end" class="t">GPIO 21 (SDA)</text>
+<circle cx="650" cy="160" r="4" fill="#1a4fa0"/><text x="640" y="164" text-anchor="end" class="t">GPIO 22 (SCL)</text>
+<circle cx="650" cy="300" r="4" fill="#1a4fa0"/><text x="640" y="304" text-anchor="end" class="t">GPIO 5 (CS)</text>
+<circle cx="650" cy="325" r="4" fill="#1a4fa0"/><text x="640" y="329" text-anchor="end" class="t">GPIO 18 (SCK)</text>
+<circle cx="650" cy="350" r="4" fill="#1a4fa0"/><text x="640" y="354" text-anchor="end" class="t">GPIO 19 (MISO)</text>
+<circle cx="650" cy="375" r="4" fill="#1a4fa0"/><text x="640" y="379" text-anchor="end" class="t">GPIO 23 (MOSI)</text>
+<circle cx="650" cy="470" r="4" fill="#1a4fa0"/><text x="640" y="474" text-anchor="end" class="t">GPIO 32</text>
+<circle cx="650" cy="560" r="4" fill="#1a4fa0"/><text x="640" y="564" text-anchor="end" class="t">GPIO 27</text>
+<circle cx="650" cy="610" r="4" fill="#1a4fa0"/><text x="640" y="614" text-anchor="end" class="t">VIN (5 V)</text>
+<line x1="300" y1="100" x2="300" y2="480" class="w3"/><line x1="300" y1="480" x2="430" y2="480" class="w3"/>
+<line x1="250" y1="100" x2="250" y2="540" class="gnd"/><line x1="40" y1="540" x2="430" y2="540" class="gnd"/>
+<rect x="30" y="104" width="190" height="52" rx="6" class="box"/>
+<text x="40" y="124" class="t"><tspan font-weight="bold">Témoin (bouteille)</tspan></text>
+<text x="40" y="142" class="s">VDD rouge · DATA jaune · GND noir</text>
+<line x1="220" y1="114" x2="300" y2="114" class="w3"/><circle cx="300" cy="114" r="3" fill="#d32f2f"/>
+<line x1="220" y1="130" x2="430" y2="130" class="sig"/>
+<line x1="220" y1="146" x2="250" y2="146" class="gnd"/><circle cx="250" cy="146" r="3" fill="#222"/>
+<line x1="345" y1="130" x2="345" y2="124" class="sig"/><circle cx="345" cy="130" r="3" fill="#1565c0"/>
+<rect x="340" y="104" width="10" height="20" fill="#fff" stroke="#a15c00" stroke-width="1.5"/>
+<polyline points="345,104 345,100 300,100" class="w3"/><circle cx="300" cy="100" r="3" fill="#d32f2f"/>
+<text x="355" y="118" class="s">4,7 kΩ</text>
+<rect x="30" y="174" width="190" height="52" rx="6" class="box"/>
+<text x="40" y="194" class="t"><tspan font-weight="bold">Bain place 1 (entrée)</tspan></text>
+<text x="40" y="212" class="s">VDD rouge · DATA jaune · GND noir</text>
+<line x1="220" y1="184" x2="300" y2="184" class="w3"/><circle cx="300" cy="184" r="3" fill="#d32f2f"/>
+<line x1="220" y1="200" x2="430" y2="200" class="sig"/>
+<line x1="220" y1="216" x2="250" y2="216" class="gnd"/><circle cx="250" cy="216" r="3" fill="#222"/>
+<line x1="345" y1="200" x2="345" y2="194" class="sig"/><circle cx="345" cy="200" r="3" fill="#1565c0"/>
+<rect x="340" y="174" width="10" height="20" fill="#fff" stroke="#a15c00" stroke-width="1.5"/>
+<polyline points="345,174 345,170 300,170" class="w3"/><circle cx="300" cy="170" r="3" fill="#d32f2f"/>
+<text x="355" y="188" class="s">4,7 kΩ</text>
+<rect x="30" y="244" width="190" height="52" rx="6" class="box"/>
+<text x="40" y="264" class="t"><tspan font-weight="bold">Bain place 2</tspan></text>
+<text x="40" y="282" class="s">VDD rouge · DATA jaune · GND noir</text>
+<line x1="220" y1="254" x2="300" y2="254" class="w3"/><circle cx="300" cy="254" r="3" fill="#d32f2f"/>
+<line x1="220" y1="270" x2="430" y2="270" class="sig"/>
+<line x1="220" y1="286" x2="250" y2="286" class="gnd"/><circle cx="250" cy="286" r="3" fill="#222"/>
+<line x1="345" y1="270" x2="345" y2="264" class="sig"/><circle cx="345" cy="270" r="3" fill="#1565c0"/>
+<rect x="340" y="244" width="10" height="20" fill="#fff" stroke="#a15c00" stroke-width="1.5"/>
+<polyline points="345,244 345,240 300,240" class="w3"/><circle cx="300" cy="240" r="3" fill="#d32f2f"/>
+<text x="355" y="258" class="s">4,7 kΩ</text>
+<rect x="30" y="314" width="190" height="52" rx="6" class="box"/>
+<text x="40" y="334" class="t"><tspan font-weight="bold">Bain place 3 (sortie)</tspan></text>
+<text x="40" y="352" class="s">VDD rouge · DATA jaune · GND noir</text>
+<line x1="220" y1="324" x2="300" y2="324" class="w3"/><circle cx="300" cy="324" r="3" fill="#d32f2f"/>
+<line x1="220" y1="340" x2="430" y2="340" class="sig"/>
+<line x1="220" y1="356" x2="250" y2="356" class="gnd"/><circle cx="250" cy="356" r="3" fill="#222"/>
+<line x1="345" y1="340" x2="345" y2="334" class="sig"/><circle cx="345" cy="340" r="3" fill="#1565c0"/>
+<rect x="340" y="314" width="10" height="20" fill="#fff" stroke="#a15c00" stroke-width="1.5"/>
+<polyline points="345,314 345,310 300,310" class="w3"/><circle cx="300" cy="310" r="3" fill="#d32f2f"/>
+<text x="355" y="328" class="s">4,7 kΩ</text>
+<rect x="30" y="384" width="190" height="52" rx="6" class="box"/>
+<text x="40" y="404" class="t"><tspan font-weight="bold">Auxiliaire (essais)</tspan></text>
+<text x="40" y="422" class="s">VDD rouge · DATA jaune · GND noir</text>
+<line x1="220" y1="394" x2="300" y2="394" class="w3"/><circle cx="300" cy="394" r="3" fill="#d32f2f"/>
+<line x1="220" y1="410" x2="430" y2="410" class="sig"/>
+<line x1="220" y1="426" x2="250" y2="426" class="gnd"/><circle cx="250" cy="426" r="3" fill="#222"/>
+<line x1="345" y1="410" x2="345" y2="404" class="sig"/><circle cx="345" cy="410" r="3" fill="#1565c0"/>
+<rect x="340" y="384" width="10" height="20" fill="#fff" stroke="#a15c00" stroke-width="1.5"/>
+<polyline points="345,384 345,380 300,380" class="w3"/><circle cx="300" cy="380" r="3" fill="#d32f2f"/>
+<text x="355" y="398" class="s">4,7 kΩ</text>
+<text x="258" y="560" class="s">GND</text>
+<text x="306" y="96" class="s">3,3 V</text><text x="30" y="92" class="t">Sondes DS18B20 (prises GX12)</text>
+
+<rect x="760" y="95" width="300" height="50" rx="6" class="box"/><text x="770" y="115" class="t">Écran OLED 1,3" SH1106 (I2C)</text><text x="770" y="133" class="s">VCC → 3V3 · GND → GND · SDA → 21 · SCL → 22</text>
+<rect x="760" y="155" width="300" height="50" rx="6" class="box"/><text x="770" y="175" class="t">Horloge DS3231 (I2C)</text><text x="770" y="193" class="s">VCC → 3V3 · GND → GND · SDA → 21 · SCL → 22</text>
+<polyline points="650,130 700,130" class="sig"/><line x1="700" y1="115" x2="700" y2="175" class="sig"/><circle cx="700" cy="130" r="3" fill="#1565c0"/><line x1="700" y1="115" x2="760" y2="115" class="sig"/><line x1="700" y1="175" x2="760" y2="175" class="sig"/><text x="704" y="111" class="s">SDA</text><polyline points="650,160 725,160" class="sig2" style="stroke:#6a1b9a"/><line x1="725" y1="137" x2="725" y2="197" style="stroke:#6a1b9a;stroke-width:2"/><circle cx="725" cy="160" r="3" fill="#6a1b9a"/><line x1="725" y1="137" x2="760" y2="137" style="stroke:#6a1b9a;stroke-width:2"/><line x1="725" y1="197" x2="760" y2="197" style="stroke:#6a1b9a;stroke-width:2"/><text x="729" y="152" class="s">SCL</text>
+<rect x="760" y="280" width="300" height="110" rx="6" class="box"/><text x="770" y="300" class="t">Lecteur microSD (SPI)</text><text x="770" y="320" class="s">CS → 5 · SCK → 18 · MISO → 19 · MOSI → 23</text><text x="770" y="338" class="s">VCC → VIN (5 V, module avec régulateur) · GND → GND</text><text x="770" y="356" class="s">(module sans régulateur : VCC → 3V3)</text>
+<line x1="650" y1="300" x2="760" y2="300" class="sig"/>
+<line x1="650" y1="325" x2="760" y2="325" class="sig"/>
+<line x1="650" y1="350" x2="760" y2="350" class="sig"/>
+<line x1="650" y1="375" x2="760" y2="375" class="sig"/>
+<rect x="760" y="440" width="300" height="60" rx="6" class="box"/><text x="770" y="460" class="t">Gros bouton DÉCALAGE (NO, IP67)</text><text x="770" y="478" class="s">une borne → GPIO 32, l'autre → GND (pull-up interne)</text><text x="770" y="494" class="s">câble déporté jusqu'au bain, prise GX12 2 broches</text>
+<line x1="650" y1="470" x2="760" y2="470" class="sig"/>
+<rect x="760" y="530" width="300" height="100" rx="6" class="box"/><text x="770" y="550" class="t">Buzzer actif 5 V</text><text x="770" y="568" class="s">GPIO 27 → 1 kΩ → base NPN (2N2222 / S8050)</text><text x="770" y="584" class="s">émetteur → GND · collecteur → (−) buzzer</text><text x="770" y="600" class="s">(+) buzzer → VIN 5 V</text><text x="770" y="616" class="s">option : module MOSFET + sirène / gyrophare 12 V</text>
+<line x1="650" y1="560" x2="760" y2="560" class="sig"/>
+<polyline points="650,610 740,610 740,600 760,600" class="sig2"/>
+<polyline points="740,610 740,345 760,345" class="sig2"/><circle cx="740" cy="610" r="3" fill="#2e7d32"/>
+<rect x="440" y="680" width="200" height="50" rx="6" class="box"/><text x="450" y="700" class="t">Alimentation USB 5 V 2 A</text><text x="450" y="718" class="s">sur la prise USB de la carte</text>
+<line x1="540" y1="650" x2="540" y2="680" class="sig2"/>
+<text x="20" y="750" class="s">Toutes les masses (GND) sont communes. Brochage défini dans firmware/compteur_up/config.h.</text>
+</svg>
