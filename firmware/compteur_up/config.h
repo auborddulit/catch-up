@@ -1,7 +1,7 @@
 // config.h — Brochage et constantes matérielles.
 #pragma once
 
-#define FW_VERSION "1.0.0"
+#define FW_VERSION "1.1.0"
 #define DEVICE_NAME "compteur-up"   // nom réseau : http://compteur-up.local
 
 // --- Sondes DS18B20 : une broche (un bus 1-Wire) par sonde -----------------
@@ -11,7 +11,6 @@
 #define PIN_T_BAIN1   16   // bain, place 1 = entrée (droite)
 #define PIN_T_BAIN2   17   // bain, place 2 = milieu
 #define PIN_T_BAIN3   25   // bain, place 3 = sortie (gauche)
-#define PIN_T_AUX     26   // auxiliaire (essais : 2e témoin, chambre froide...)
 
 // --- Bus I2C : écran OLED SH1106 1,3" + horloge DS3231 ----------------------
 #define PIN_I2C_SDA   21

@@ -304,7 +304,7 @@ void Measure::begin(const Params& prm, uint32_t now) {
   tStart = now;
   tIn = tOut = lastPress = 0;
   pos = -2;
-  upBath = upTotal = upAuxBath = upAuxTotal = upPred = 0;
+  upBath = upTotal = upPred = 0;
   t0 = NAN;
   for (int i = 0; i < NPOS; i++) tPos[i] = 0;
   ev.clear();
@@ -338,11 +338,6 @@ void Measure::step(uint32_t now, float dt, const Inputs& in) {
     float r = puPerSecond(in.witness, p) * dt;
     upTotal += r;
     if (inBath) upBath += r;
-  }
-  if (in.auxOk && (inBath || after)) {
-    float r = puPerSecond(in.aux, p) * dt;
-    upAuxTotal += r;
-    if (inBath) upAuxBath += r;
   }
   if (inBath) {
     tPos[pos] += dt;

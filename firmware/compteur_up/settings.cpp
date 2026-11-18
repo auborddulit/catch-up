@@ -3,7 +3,7 @@
 #include <Preferences.h>
 
 const char* const PROBE_NAMES[NPROBE] = {"Témoin", "Bain place 1 (entrée)", "Bain place 2",
-                                         "Bain place 3 (sortie)", "Auxiliaire"};
+                                         "Bain place 3 (sortie)"};
 
 Settings settings;
 

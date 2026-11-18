@@ -2,14 +2,13 @@
 <rect width="100%" height="100%" fill="#fff"/>
 <style>.box{fill:#f7f9fc;stroke:#334;stroke-width:1.5}.esp{fill:#e8f0fe;stroke:#1a4fa0;stroke-width:2}.w3{stroke:#d32f2f;stroke-width:2;fill:none}.gnd{stroke:#222;stroke-width:2;fill:none}.sig{stroke:#1565c0;stroke-width:2;fill:none}.sig2{stroke:#2e7d32;stroke-width:2;fill:none}.t{fill:#111}.s{font-size:11px;fill:#444}.h{font-size:15px;font-weight:bold}</style>
 <text x="20" y="28" class="h">compteur-up — plan de câblage (ESP32 DevKit)</text>
-<text x="20" y="46" class="s">Rouge : 3,3 V · Noir : GND · Bleu : signaux · Vert : 5 V (VIN). Une résistance de 4,7 kΩ entre DATA et 3,3 V pour chaque sonde.</text>
+<text x="20" y="46" class="s">Rouge : 3,3 V · Noir : GND · Bleu : signaux · Vert : 5 V (VIN). Une résistance de 4,7 kΩ entre DATA et 3,3 V pour chacune des 4 sondes.</text>
 <rect x="430" y="90" width="220" height="560" rx="10" class="esp"/>
 <text x="540.0" y="118" text-anchor="middle" class="h">ESP32 DevKit</text>
 <circle cx="430" cy="130" r="4" fill="#1a4fa0"/><text x="440" y="134" class="t">GPIO 4</text>
 <circle cx="430" cy="200" r="4" fill="#1a4fa0"/><text x="440" y="204" class="t">GPIO 16</text>
 <circle cx="430" cy="270" r="4" fill="#1a4fa0"/><text x="440" y="274" class="t">GPIO 17</text>
 <circle cx="430" cy="340" r="4" fill="#1a4fa0"/><text x="440" y="344" class="t">GPIO 25</text>
-<circle cx="430" cy="410" r="4" fill="#1a4fa0"/><text x="440" y="414" class="t">GPIO 26</text>
 <circle cx="430" cy="480" r="4" fill="#1a4fa0"/><text x="440" y="484" class="t">3V3</text>
 <circle cx="430" cy="540" r="4" fill="#1a4fa0"/><text x="440" y="544" class="t">GND</text>
 <circle cx="650" cy="130" r="4" fill="#1a4fa0"/><text x="640" y="134" text-anchor="end" class="t">GPIO 21 (SDA)</text>
@@ -63,16 +62,6 @@
 <rect x="340" y="314" width="10" height="20" fill="#fff" stroke="#a15c00" stroke-width="1.5"/>
 <polyline points="345,314 345,310 300,310" class="w3"/><circle cx="300" cy="310" r="3" fill="#d32f2f"/>
 <text x="355" y="328" class="s">4,7 kΩ</text>
-<rect x="30" y="384" width="190" height="52" rx="6" class="box"/>
-<text x="40" y="404" class="t"><tspan font-weight="bold">Auxiliaire (essais)</tspan></text>
-<text x="40" y="422" class="s">VDD rouge · DATA jaune · GND noir</text>
-<line x1="220" y1="394" x2="300" y2="394" class="w3"/><circle cx="300" cy="394" r="3" fill="#d32f2f"/>
-<line x1="220" y1="410" x2="430" y2="410" class="sig"/>
-<line x1="220" y1="426" x2="250" y2="426" class="gnd"/><circle cx="250" cy="426" r="3" fill="#222"/>
-<line x1="345" y1="410" x2="345" y2="404" class="sig"/><circle cx="345" cy="410" r="3" fill="#1565c0"/>
-<rect x="340" y="384" width="10" height="20" fill="#fff" stroke="#a15c00" stroke-width="1.5"/>
-<polyline points="345,384 345,380 300,380" class="w3"/><circle cx="300" cy="380" r="3" fill="#d32f2f"/>
-<text x="355" y="398" class="s">4,7 kΩ</text>
 <text x="258" y="560" class="s">GND</text>
 <text x="306" y="96" class="s">3,3 V</text><text x="30" y="92" class="t">Sondes DS18B20 (prises GX12)</text>
 

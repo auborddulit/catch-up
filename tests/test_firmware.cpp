@@ -30,7 +30,6 @@ static const float K1 = 0.0055f, K2 = 0.0046f;
 static void setProbes(float w, bool wOk, uint32_t t, bool dip) {
   for (int s = 0; s < 3; s++) { g_probe[P_BAIN1 + s].value = g_probe[P_BAIN1 + s].raw = bathT(s, t, dip); g_probe[P_BAIN1 + s].ok = true; }
   g_probe[P_TEMOIN].value = g_probe[P_TEMOIN].raw = w; g_probe[P_TEMOIN].ok = wOk;
-  g_probe[P_AUX].ok = false;
 }
 
 static void tick() { g_now += 2; g_ms += 2000; app.onSample(); }

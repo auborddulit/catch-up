@@ -12,7 +12,6 @@
 | Sonde **bain place 1** (entrée, droite) | DATA | **GPIO 16** | 4,7 kΩ |
 | Sonde **bain place 2** | DATA | **GPIO 17** | 4,7 kΩ |
 | Sonde **bain place 3** (sortie, gauche) | DATA | **GPIO 25** | 4,7 kΩ |
-| Sonde **auxiliaire** | DATA | **GPIO 26** | 4,7 kΩ |
 | Toutes les sondes | VDD (rouge) / GND (noir) | 3V3 / GND | **Alimentation 3 fils** (pas de mode parasite) |
 | OLED SH1106 | SDA / SCL / VCC / GND | 21 / 22 / 3V3 / GND | Adresse I2C 0x3C |
 | DS3231 | SDA / SCL / VCC / GND | 21 / 22 / 3V3 / GND | Adresse I2C 0x68 (module : EEPROM en 0x57, sans conflit) |
@@ -28,7 +27,7 @@ Chaque sonde a son propre bus 1-Wire. L'appareil sait donc **quelle sonde est o�
 
 ## Conseils de montage
 
-- **Prises GX12** sur le boîtier : une par sonde, avec une étiquette (T, B1, B2, B3, AUX). Gardez la même affectation fil → broche partout : 1 = GND, 2 = DATA, 3 = VDD.
+- **Prises GX12** sur le boîtier : une par sonde, avec une étiquette (T, B1, B2, B3). Gardez la même affectation fil → broche partout : 1 = GND, 2 = DATA, 3 = VDD.
 - Soudez les **résistances de 4,7 kΩ côté boîtier**, sur la plaque à pastilles.
 - **Câbles longs** : jusqu'à environ 5 m par sonde, aucun souci avec 4,7 kΩ. En cas de lectures « absente » intermittentes, passez à 2,2 kΩ.
 - Mettez le **boîtier à l'abri des projections**, au-dessus du niveau du bain, et branchez l'alimentation USB sur une prise protégée par un différentiel 30 mA.

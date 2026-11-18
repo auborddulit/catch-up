@@ -4,8 +4,8 @@
 #include <ArduinoJson.h>
 #include "up_core.h"
 
-constexpr int NPROBE = 5;
-enum ProbeId { P_TEMOIN = 0, P_BAIN1, P_BAIN2, P_BAIN3, P_AUX };
+constexpr int NPROBE = 4;
+enum ProbeId { P_TEMOIN = 0, P_BAIN1, P_BAIN2, P_BAIN3 };
 extern const char* const PROBE_NAMES[NPROBE];
 
 struct Settings {
@@ -36,7 +36,7 @@ struct Settings {
   float bathMin = 64.0f;
   uint16_t bathMinDelayS = 60;
   // étalonnage des sondes : valeur = brute + offset
-  float offset[NPROBE] = {0, 0, 0, 0, 0};
+  float offset[NPROBE] = {0, 0, 0, 0};
   char calDate[24] = "";
   // valeurs par défaut du formulaire de lot
   char produit[48] = "";

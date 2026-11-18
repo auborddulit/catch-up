@@ -38,7 +38,23 @@ Vous obtenez :
 
 **Faites au moins 3 mesures** à des moments différents : bain en début de chauffe, en milieu de journée, cuve en bas de son hystérésis. Gardez la plus faible.
 
-**Point froid** : utilisez la sonde **auxiliaire** dans une 2e bouteille témoin pour comparer deux hauteurs de sonde, ou deux positions dans la caisse (centre ou coin côté entrée d'eau). Le témoin de production doit occuper la position qui reçoit **le moins d'UP**.
+**Trouver la bouteille la plus lente** (à faire une fois, puis à chaque changement de l'installation)
+
+Le témoin de production doit occuper la place de la caisse qui reçoit **le moins d'UP**. On la cherche à la main, en mode Mesure, en déplaçant le témoin d'un passage à l'autre :
+
+1. Choisir 3 ou 4 places candidates : le **centre** de la caisse, un **coin côté arrivée d'eau chaude**, un **coin à l'opposé**, et le milieu d'un **bord long**.
+2. Faire **au moins 2 passages par place**, en **alternant** les places (A, B, C, A, B, C…) plutôt que de les enchaîner. Le bain oscille de ±1 °C avec le thermostat de la cuve ; alterner évite qu'une place tombe toujours sur un bain plus chaud.
+3. Garder la même cadence, le même chargement de caisse (24 bouteilles) et des bouteilles à la même température de départ.
+4. Comparer les **UP bain** moyennes. La place la plus basse devient la position du témoin. Notez-la dans le plan HACCP, avec une photo.
+
+Si deux places sont à moins de 10 % l'une de l'autre, l'écart est dans le bruit : prenez la plus défavorable des deux, ou refaites un passage de chaque.
+
+**Quand refaire cette recherche** : la place la plus lente ne bouge pas tant que l'installation reste la même. Elle peut changer si l'on modifie :
+- le sens ou l'endroit d'arrivée de l'eau chaude (c'est prévu avec le système 2, arrivée côté sortie) ;
+- le débit de la pompe ;
+- le niveau d'eau ;
+- le modèle de caisse ;
+- le format de bouteille.
 
 ## 4. Étalonner le modèle
 

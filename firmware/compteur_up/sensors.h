@@ -1,4 +1,4 @@
-// sensors.h — Lecture des 5 sondes DS18B20 (un bus 1-Wire par sonde).
+// sensors.h — Lecture des 4 sondes DS18B20 (un bus 1-Wire par sonde).
 #pragma once
 #include <Arduino.h>
 #include "settings.h"

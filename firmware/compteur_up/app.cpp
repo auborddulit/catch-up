@@ -234,8 +234,6 @@ void App::onSample() {
   }
   in.witness = probe(P_TEMOIN).value;
   in.witnessOk = probe(P_TEMOIN).ok;
-  in.aux = probe(P_AUX).value;
-  in.auxOk = probe(P_AUX).ok;
 
   uint32_t ms = millis();
   float dt = lastSampleMs ? (ms - lastSampleMs) / 1000.0f : 0;
@@ -278,8 +276,7 @@ void App::writeDataLine() {
   l += fmtDateTime(now); l += ',';
   l += String(now - meta.tStart); l += ',';
   l += in.witnessOk ? f1(in.witness, 2) : String(""); l += ',';
-  for (int s = 0; s < up::NPOS; s++) { l += in.bathOk[s] ? f1(in.bath[s], 2) : String(""); l += ','; }
-  l += in.auxOk ? f1(in.aux, 2) : String("");
+  for (int s = 0; s < up::NPOS; s++) { if (s) l += ','; l += in.bathOk[s] ? f1(in.bath[s], 2) : String(""); }
   if (mode == Mode::Session) {
     for (int s = 0; s < up::NPOS; s++) {
       l += ',';
@@ -295,8 +292,6 @@ void App::writeDataLine() {
     l += ','; l += f1(mes.upBath, 3);
     l += ','; l += f1(mes.upTotal, 3);
     l += ','; l += f1(mes.upPred, 3);
-    l += ','; l += f1(mes.upAuxBath, 3);
-    l += ','; l += f1(mes.upAuxTotal, 3);
   }
   appendLine(String(meta.dir) + "/data.csv", l);
 }
@@ -409,7 +404,7 @@ String App::startSession(const String& lot, const String& produit, const String&
   meta.tStart = now;
   SD.mkdir(dir);
   appendLine(dir + "/data.csv",
-             "horodatage,t_s,temoin,bain1,bain2,bain3,aux,caisse_p1,caisse_p2,caisse_p3,up_sortie,up_temoin");
+             "horodatage,t_s,temoin,bain1,bain2,bain3,caisse_p1,caisse_p2,caisse_p3,up_sortie,up_temoin");
   appendLine(dir + "/events.csv", "horodatage,type,caisse,message");
 
   up::Params p = settings.params();
@@ -445,7 +440,7 @@ String App::startMesure(const String& notes) {
   meta.target = settings.target;
   SD.mkdir(dir);
   appendLine(dir + "/data.csv",
-             "horodatage,t_s,temoin,bain1,bain2,bain3,aux,place_temoin,up_bain,up_total,up_modele,up_aux_bain,up_aux_total");
+             "horodatage,t_s,temoin,bain1,bain2,bain3,place_temoin,up_bain,up_total,up_modele");
   appendLine(dir + "/events.csv", "horodatage,type,caisse,message");
   mes.begin(settings.params(), now);
   for (int i = 0; i < AL_COUNT; i++) alarms[i] = Alarm();
@@ -703,8 +698,6 @@ void App::statusJson(JsonObject o) {
     m["upBath"] = mes.upBath;
     m["upTotal"] = mes.upTotal;
     m["upPred"] = mes.upPred;
-    m["upAuxBath"] = mes.upAuxBath;
-    m["upAuxTotal"] = mes.upAuxTotal;
     if (!std::isnan(mes.t0)) m["tw0"] = mes.t0;
     m["canUndo"] = mes.lastPress && now - mes.lastPress <= UNDO_MAX_S;
     m["sincePress"] = mes.lastPress ? now - mes.lastPress : 0;

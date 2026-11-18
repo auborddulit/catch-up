@@ -43,13 +43,13 @@ static float num(const String& s) {
 // Lecture de data.csv : statistiques et points sous-échantillonnés
 struct Scan {
   int rows = 0;
-  float mn[5], mx[5], sum[5];
-  int cnt[5];
-  std::vector<float> t, y[5];   // 0 témoin, 1-3 bain, 4 aux
+  float mn[4], mx[4], sum[4];
+  int cnt[4];
+  std::vector<float> t, y[4];   // 0 témoin, 1-3 bain
 };
 
 static void scanData(const String& path, Scan& sc, int maxPts = 360) {
-  for (int k = 0; k < 5; k++) { sc.mn[k] = 1e9; sc.mx[k] = -1e9; sc.sum[k] = 0; sc.cnt[k] = 0; }
+  for (int k = 0; k < 4; k++) { sc.mn[k] = 1e9; sc.mx[k] = -1e9; sc.sum[k] = 0; sc.cnt[k] = 0; }
   File fl = SD.open(path, FILE_READ);
   if (!fl) return;
   fl.readStringUntil('\n');   // en-tête
@@ -63,10 +63,10 @@ static void scanData(const String& path, Scan& sc, int maxPts = 360) {
   while (fl.available()) {
     String line = fl.readStringUntil('\n');
     line.trim();
-    if (splitCsv(line, fld, 8) < 7) { i++; continue; }
+    if (splitCsv(line, fld, 8) < 6) { i++; continue; }
     float t = num(fld[1]);
-    float v[5] = {num(fld[2]), num(fld[3]), num(fld[4]), num(fld[5]), num(fld[6])};
-    for (int k = 0; k < 5; k++) {
+    float v[4] = {num(fld[2]), num(fld[3]), num(fld[4]), num(fld[5])};
+    for (int k = 0; k < 4; k++) {
       if (std::isnan(v[k])) continue;
       sc.mn[k] = fminf(sc.mn[k], v[k]);
       sc.mx[k] = fmaxf(sc.mx[k], v[k]);
@@ -75,7 +75,7 @@ static void scanData(const String& path, Scan& sc, int maxPts = 360) {
     }
     if (i % step == 0) {
       sc.t.push_back(t / 60.0f);
-      for (int k = 0; k < 5; k++) sc.y[k].push_back(v[k]);
+      for (int k = 0; k < 4; k++) sc.y[k].push_back(v[k]);
     }
     i++;
   }
@@ -85,8 +85,8 @@ static void scanData(const String& path, Scan& sc, int maxPts = 360) {
 // Graphique SVG (aucun script : s'imprime tel quel)
 static void svgChart(File& o, const Scan& sc, const int* series, int ns, float y0, float y1,
                      const char* title) {
-  static const char* COL[5] = {"#c0392b", "#1f77b4", "#2ca02c", "#9467bd", "#7f7f7f"};
-  static const char* NAME[5] = {"Témoin", "Bain place 1", "Bain place 2", "Bain place 3", "Aux"};
+  static const char* COL[4] = {"#c0392b", "#1f77b4", "#2ca02c", "#9467bd"};
+  static const char* NAME[4] = {"Témoin", "Bain place 1", "Bain place 2", "Bain place 3"};
   const int W = 720, H = 230, L = 46, R = 12, T = 26, B = 30;
   float x1 = sc.t.empty() ? 1 : sc.t.back();
   if (x1 <= 0) x1 = 1;
@@ -179,7 +179,7 @@ static void modelRows(File& o) {
   String off;
   for (int i = 0; i < NPROBE; i++) off += (i ? " / " : "") + f(settings.offset[i], 2);
   kv(o, "Étalonnage des sondes", String(settings.calDate[0] ? settings.calDate : "non renseigné") +
-                                     " — corrections (témoin / bain 1 / 2 / 3 / aux) : " + off + " °C");
+                                     " — corrections (témoin / bain 1 / 2 / 3) : " + off + " °C");
 }
 
 // ---------------------------------------------------------------------------
@@ -349,12 +349,11 @@ bool writeMesureReport(const RunMeta& m, const up::Measure& me, const String& co
   kv(o, "<b>UP au cœur – bain seul</b>", "<b>" + f(me.upBath, 2) + "</b>");
   kv(o, "UP au cœur – bain + air", f(me.upTotal, 2));
   kv(o, "UP prévues par le modèle actuel (bain)", f(me.upPred, 2));
-  if (sc.cnt[4]) kv(o, "Sonde auxiliaire : UP bain / bain + air", f(me.upAuxBath, 2) + " / " + f(me.upAuxTotal, 2));
   modelRows(o);
   kv(o, "Appareil", String("compteur-up v") + FW_VERSION);
   o.print("</table>");
-  int ser[5] = {0, 1, 2, 3, 4};
-  svgChart(o, sc, ser, sc.cnt[4] ? 5 : 4, 0, 80, "Témoin et bain (°C)");
+  int ser[4] = {0, 1, 2, 3};
+  svgChart(o, sc, ser, 4, 0, 80, "Témoin et bain (°C)");
   eventsTable(o, dir);
   o.print("<h2>Commentaires</h2><p>");
   o.print(comment.length() ? htmlEsc(comment) : String("Aucun."));
@@ -379,8 +378,8 @@ String fitFromDir(const String& dir, JsonObject out) {
   while (fl.available() && tm.size() < 6000) {
     String line = fl.readStringUntil('\n');
     line.trim();
-    if (splitCsv(line, fld, 9) < 8) continue;
-    int place = fld[7].toInt();
+    if (splitCsv(line, fld, 9) < 7) continue;
+    int place = fld[6].toInt();
     for (int k = 0; k < 3; k++) { float v = num(fld[3 + k]); if (!std::isnan(v)) lastW[k] = v; }
     float m = num(fld[2]);
     if (!std::isnan(m)) lastM = m;

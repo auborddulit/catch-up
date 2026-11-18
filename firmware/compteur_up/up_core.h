@@ -72,8 +72,6 @@ struct Inputs {
   bool  bathOk[NPOS] = {false, false, false};
   float witness = NAN;
   bool  witnessOk = false;
-  float aux = NAN;
-  bool  auxOk = false;
 };
 
 // Température d'eau retenue pour une place : la sonde de la place si elle est
@@ -216,7 +214,6 @@ class Measure {
   uint32_t tStart = 0, tIn = 0, tOut = 0, lastPress = 0;
   int8_t pos = -2;              // -2 avant entrée, 0..2 dans le bain, -1 sorti
   float upBath = 0, upTotal = 0;          // témoin
-  float upAuxBath = 0, upAuxTotal = 0;    // sonde auxiliaire
   float upPred = 0;                       // prévision du modèle (bain)
   float t0 = NAN;                          // température du témoin à l'entrée
   float tPos[NPOS] = {0, 0, 0};

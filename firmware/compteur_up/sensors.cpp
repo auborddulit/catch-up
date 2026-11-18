@@ -4,7 +4,7 @@
 #include <DallasTemperature.h>
 #include "config.h"
 
-static const uint8_t PINS[NPROBE] = {PIN_T_TEMOIN, PIN_T_BAIN1, PIN_T_BAIN2, PIN_T_BAIN3, PIN_T_AUX};
+static const uint8_t PINS[NPROBE] = {PIN_T_TEMOIN, PIN_T_BAIN1, PIN_T_BAIN2, PIN_T_BAIN3};
 static OneWire* ow[NPROBE];
 static DallasTemperature* dt[NPROBE];
 static DeviceAddress addr[NPROBE];

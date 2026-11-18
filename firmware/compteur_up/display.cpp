@@ -75,7 +75,7 @@ void displayLoop() {
   if (app.mode == Mode::Idle) {
     oled.drawUTF8(0, 9, (String("REPOS  ") + hm).c_str());
     oled.drawUTF8(0, 21, bath.c_str());
-    oled.drawUTF8(0, 33, (String("Témoin ") + probeTxt(P_TEMOIN) + "  Aux " + probeTxt(P_AUX)).c_str());
+    oled.drawUTF8(0, 33, (String("Témoin ") + probeTxt(P_TEMOIN) + " °C").c_str());
     String ip = WiFi.status() == WL_CONNECTED ? WiFi.localIP().toString()
                                               : String("AP ") + WiFi.softAPIP().toString();
     oled.drawUTF8(0, 45, ip.c_str());

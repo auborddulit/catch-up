@@ -22,7 +22,7 @@ Cette page résume comment l'appareil s'intègre dans un plan HACCP. C'est un mo
 
 ## Validation de la cible : étapes conseillées
 
-1. Trouver le point froid : hauteur de la sonde et position dans la caisse (mode Mesure, sonde auxiliaire).
+1. Trouver la bouteille la plus lente : position dans la caisse, en mode Mesure, par passages successifs.
 2. Mesurer les UP du procédé actuel : au moins 3 mesures, retenir la plus faible.
 3. Fixer la cible : par exemple UP actuelles + 10 %, pour ne pas faire moins bien qu'aujourd'hui.
 4. Faire confirmer la cible par un laboratoire ou un centre technique : données de thermorésistance des levures, ou test d'épreuve.
