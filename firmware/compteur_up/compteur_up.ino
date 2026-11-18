@@ -4,7 +4,7 @@
 // dans le bain alimentent une « bouteille virtuelle » par caisse pour indiquer
 // quand décaler les caisses dans un tunnel manuel à 3 places.
 //
-// Projet : https://github.com/ (voir README.md)       Licence : MIT
+// Projet : https://github.com/auborddulit/compteur-UP       Licence : MIT
 #include <Arduino.h>
 #include <Wire.h>
 #include <WiFi.h>

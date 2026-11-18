@@ -41,6 +41,8 @@ Un appareil simple et peu coûteux (≈ 120 € de matériel) pour **mesurer et 
 
 ## Démarrage rapide
 
+Télécharger le projet : `git clone https://github.com/auborddulit/compteur-UP.git` (ou *Code → Download ZIP* sur GitHub).
+
 1. Acheter le matériel : [docs/materiel.md](docs/materiel.md).
 2. Câbler : [docs/cablage.md](docs/cablage.md).
 3. Flasher le firmware et faire la première configuration : [docs/installation.md](docs/installation.md).
