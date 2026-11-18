@@ -11,7 +11,7 @@ Formatez-la en **FAT32**, puis insérez-la dans le lecteur. L'appareil crée lui
 1. Branchez l'ESP32 en USB sur un ordinateur, avec Chrome ou Edge.
 2. Ouvrez **https://espressif.github.io/esptool-js/**, cliquez sur *Connect* et choisissez le port de la carte.
 3. Cliquez sur *Erase Flash*, puis attendez la fin.
-4. Dans *Flash Address* mettez **0x0**, choisissez le fichier `firmware/bin/compteur-up-v1.2.0-esp32-merged.bin`, puis cliquez sur *Program*.
+4. Dans *Flash Address* mettez **0x0**, choisissez le fichier `firmware/bin/compteur-up-v1.3.0-esp32-merged.bin`, puis cliquez sur *Program*.
 5. Débranchez et rebranchez la carte.
 
 ### Option B : compiler avec l'IDE Arduino (2.x)
@@ -62,7 +62,7 @@ Avec Internet, l'heure se règle seule (NTP, heure de Paris, été/hiver automat
 1. Installez l'application **ntfy** (Android ou iPhone).
 2. Inventez un **sujet long et difficile à deviner**, par exemple `pasteur-atelier-7h3k9q2x`. Sur ntfy.sh, les sujets sont publics : quiconque connaît le nom peut lire les messages.
 3. Dans l'application : *S'abonner* → ce sujet.
-4. Dans *Réglages* de l'appareil : serveur `https://ntfy.sh`, le même sujet. Cochez *Alarmes* et *Fin de lot*, et *Chaque décalage* si vous le souhaitez.
+4. Dans *Réglages* de l'appareil : serveur `https://ntfy.sh`, le même sujet. Cochez *Alarmes*, *Fin de lot* (notification avec boutons *Télécharger* et *Commenter*) et *Rappel quotidien*, et *Chaque décalage* si vous le souhaitez. Les boutons de la notification ouvrent l'adresse IP de l'appareil : réservez cette adresse dans la box (bail DHCP fixe) pour qu'elle ne change pas.
 5. Cliquez sur *Enregistrer*, puis sur *Tester ntfy*.
 
 Un serveur ntfy auto-hébergé fonctionne aussi : en `http://` sur le réseau local, ou en `https://` avec un certificat Let's Encrypt.

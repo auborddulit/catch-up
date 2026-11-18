@@ -13,6 +13,8 @@
 #include "io.h"
 #include "report.h"
 #include "web_ui.h"
+#include "archive.h"
+#include "bg.h"
 
 static WebServer server(80);
 
@@ -110,6 +112,7 @@ static void listDir(JsonArray arr, const char* base) {
       x["upBain"] = m["upBain"];
       x["notes"] = m["notes"];
     }
+    x["aSauver"] = archiveIsPending(dir);
   }
 }
 
@@ -142,8 +145,45 @@ static void hFile() {
     server.sendHeader("Content-Disposition",
                       "attachment; filename=\"" + p.substring(b + 1, a) + "_" + p.substring(a + 1) + "\"");
   }
-  server.streamFile(f, type);
+  // envoi par blocs : le bouton DÉCALAGE et les mesures restent actifs
+  server.setContentLength(f.size());
+  server.send(200, type, "");
+  static uint8_t buf[1024];
+  size_t n;
+  while ((n = f.read(buf, sizeof buf)) > 0) {
+    server.sendContent((const char*)buf, n);
+    if (!server.client().connected()) break;
+    backgroundTick();
+  }
   f.close();
+}
+
+static void hZip() {
+  String d = server.arg("d");
+  if (d.indexOf("..") >= 0 || !(d.startsWith("/sessions/") || d.startsWith("/mesures/")) || !SD.exists(d)) {
+    server.send(404, "text/plain", "Lot introuvable");
+    return;
+  }
+  if (app.mode != Mode::Idle && d == app.meta.dir) {
+    server.send(409, "text/plain; charset=utf-8", "Lot en cours : le télécharger après la clôture");
+    return;
+  }
+  size_t total = zipFolder(d, [](const uint8_t*, size_t) { return true; }, true);
+  if (!total) { server.send(500, "text/plain", "Archive impossible"); return; }
+  server.setContentLength(total);
+  server.sendHeader("Content-Disposition", "attachment; filename=\"" + zipName(d) + "\"");
+  server.sendHeader("Cache-Control", "no-store");
+  server.send(200, "application/zip", "");
+  size_t sent = zipFolder(d, [](const uint8_t* b, size_t n) {
+    server.sendContent((const char*)b, n);
+    return (bool)server.client().connected();
+  });
+  if (sent == total && server.client().connected()) {
+    if (d.startsWith("/sessions/")) {
+      appendLine(d + "/events.csv", fmtDateTime(nowEpoch()) + ",SAUVEGARDE,,Sauvegarde .zip téléchargée");
+    }
+    archiveDownloaded(d);
+  }
 }
 
 static void hFit() {
@@ -273,6 +313,7 @@ void webBegin() {
   server.on("/api/mesure/stop", HTTP_POST, hMesureStop);
   server.on("/api/history", HTTP_GET, hHistory);
   server.on("/f", HTTP_GET, hFile);
+  server.on("/zip", HTTP_GET, hZip);
   server.on("/api/fit", HTTP_POST, hFit);
   server.on("/api/model", HTTP_POST, hModel);
   server.on("/api/settings", HTTP_GET, hSettingsGet);

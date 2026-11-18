@@ -31,6 +31,7 @@ void Settings::toJson(JsonObject o, bool withSecrets) const {
   o["ntfyAlarms"] = ntfyAlarms;
   o["ntfyShift"] = ntfyShift;
   o["ntfyEnd"] = ntfyEnd;
+  o["ntfyReminder"] = ntfyReminder;
   o["z"] = z; o["tRef"] = tRef; o["tCount"] = tCount;
   o["target"] = target; o["upMax"] = upMax; o["nominalS"] = nominalS; o["rAlarm"] = rAlarm;
   o["k1"] = k1; o["k2"] = k2; o["modelDate"] = modelDate; o["modelSource"] = modelSource;
@@ -55,7 +56,7 @@ void Settings::fromJson(JsonObjectConst o) {
     cp(adminPass, sizeof adminPass, o["adminPass"]);
   cp(ntfyServer, sizeof ntfyServer, o["ntfyServer"]);
   cp(ntfyTopic, sizeof ntfyTopic, o["ntfyTopic"]);
-  num(ntfyAlarms, o["ntfyAlarms"]); num(ntfyShift, o["ntfyShift"]); num(ntfyEnd, o["ntfyEnd"]);
+  num(ntfyAlarms, o["ntfyAlarms"]); num(ntfyShift, o["ntfyShift"]); num(ntfyEnd, o["ntfyEnd"]); num(ntfyReminder, o["ntfyReminder"]);
   num(z, o["z"]); num(tRef, o["tRef"]); num(tCount, o["tCount"]);
   num(target, o["target"]); num(upMax, o["upMax"]); num(nominalS, o["nominalS"]);
   num(rAlarm, o["rAlarm"]);

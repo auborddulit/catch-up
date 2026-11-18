@@ -35,7 +35,13 @@ String fmtStamp(uint32_t e) { return fmt(e, "%Y%m%d-%H%M"); }
 
 int g_notifs = 0;
 void notifyBegin() {}
-void notify(const String& t, const String& b, uint8_t p, const char*) { g_notifs++; printf("  [ntfy p%d] %s : %s\n", p, t.c_str(), b.c_str()); }
+void notify(const String& t, const String& b, uint8_t p, const char*, const NotifyAction* a, int na) {
+  g_notifs++;
+  printf("  [ntfy p%d] %s : %s", p, t.c_str(), b.c_str());
+  for (int i = 0; i < na; i++) printf(" [%s → %s]", a[i].label, a[i].url.c_str());
+  printf("\n");
+}
+void backgroundTick() {}
 int notifyLastCode() { return 200; }
 
 int g_clicks = 0;

@@ -14,7 +14,7 @@ test_core: test_core.cpp $(FW)/up_core.cpp $(FW)/up_core.h
 
 test_firmware: test_firmware.cpp shim/*.cpp shim/*.h $(FW)/*.cpp $(FW)/*.h
 	g++ $(CXXFLAGS) -Ishim -I$(FW) -I$(ARDUINOJSON) test_firmware.cpp shim/stubs.cpp \
-	  $(FW)/app.cpp $(FW)/report.cpp $(FW)/storage.cpp $(FW)/settings.cpp $(FW)/up_core.cpp -o $@
+	  $(FW)/app.cpp $(FW)/archive.cpp $(FW)/report.cpp $(FW)/storage.cpp $(FW)/settings.cpp $(FW)/up_core.cpp -o $@
 
 # Captures des écrans (facultatif, compile toute la bibliothèque U8g2 : ~1 min)
 ecrans: test_ecrans
@@ -27,7 +27,7 @@ libu8g2.a:
 
 test_ecrans: test_ecrans.cpp libu8g2.a shim/*.cpp shim/*.h $(FW)/*.cpp $(FW)/*.h
 	g++ $(CXXFLAGS) -Ishim -I$(FW) -I$(U8G2) -I$(ARDUINOJSON) test_ecrans.cpp shim/stubs.cpp $(FW)/display.cpp \
-	  $(FW)/app.cpp $(FW)/report.cpp $(FW)/storage.cpp $(FW)/settings.cpp $(FW)/up_core.cpp libu8g2.a -o $@
+	  $(FW)/app.cpp $(FW)/archive.cpp $(FW)/report.cpp $(FW)/storage.cpp $(FW)/settings.cpp $(FW)/up_core.cpp libu8g2.a -o $@
 
 clean:
 	rm -rf test_core test_firmware test_ecrans libu8g2.a u8g2obj out

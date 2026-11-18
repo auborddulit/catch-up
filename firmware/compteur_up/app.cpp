@@ -9,6 +9,7 @@
 #include "notify.h"
 #include "io.h"
 #include "report.h"
+#include "archive.h"
 
 App app;
 
@@ -471,14 +472,8 @@ String App::closeSession(const String& comment, bool force) {
   writeCratesCsv(meta, sess);
   writeSessionReport(meta, sess, comment);
   writeMeta(conf ? "CONFORME" : "NON CONFORME", comment);
-  if (settings.ntfyEnd) {
-    float mn = 1e9;
-    for (int i = 0; i < sess.nCrates; i++)
-      if (sess.crates[i].pos == -1) mn = fminf(mn, sess.crates[i].upFinal);
-    notify(String("Lot ") + meta.lot + (conf ? " CONFORME" : " NON CONFORME"),
-           String(sess.nCrates) + " caisses, UP min " + (mn < 1e8 ? f1(mn, 1) : String("-")),
-           conf ? 3 : 5, conf ? "white_check_mark" : "x");
-  }
+  // à sauvegarder sur le téléphone : notification « Télécharger / Commenter »
+  archivePending(meta.dir, meta.lot, conf, false);
   lastClosedDir = meta.dir;
   clearState();
   mode = Mode::Idle;
@@ -527,6 +522,8 @@ String App::addComment(const String& dir, const String& text) {
     writeText(dir + "/meta.json", s);
   }
   if (!insertReportComment(dir, when, t)) return "Commentaire enregistré, mais relevé non mis à jour";
+  // la sauvegarde déjà téléchargée n'est plus à jour : nouvelle notification
+  archivePending(dir, d["lot"] | "", String(d["statut"] | "") == "CONFORME", true);
   return "";
 }
 
@@ -646,6 +643,7 @@ void App::statusJson(JsonObject o) {
   o["eta"] = eta;
   o["silenced"] = silencedUntilMs != 0;
   o["lastClosed"] = lastClosedDir;
+  archiveList(o["aSauver"].to<JsonArray>());
   JsonObject df = o["def"].to<JsonObject>();
   df["target"] = settings.target;
   df["t0"] = settings.t0;

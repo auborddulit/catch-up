@@ -19,6 +19,8 @@
 #include "display.h"
 #include "web.h"
 #include "app.h"
+#include "archive.h"
+#include "bg.h"
 
 static void wifiBegin() {
   WiFi.setHostname(DEVICE_NAME);
@@ -63,16 +65,28 @@ void setup() {
                                               : WiFi.softAPIP().toString().c_str());
 }
 
-void loop() {
+// Tout sauf la page web : appelé par la boucle principale et pendant les
+// opérations longues de la page web (téléchargements), pour que le bouton
+// DÉCALAGE, les mesures, l'écran et le buzzer ne soient jamais bloqués.
+void backgroundTick() {
+  static bool busy = false;
+  if (busy) return;      // pas de réentrée
+  busy = true;
   Btn b = buttonPoll();
   if (b == Btn::Short) app.onButton(false);
   else if (b == Btn::Long) app.onButton(true);
   uiOnKey(keyPoll());
   if (sensorsUpdate()) app.onSample();
-  webLoop();
   clockLoop();
   app.loop();
+  archiveLoop();
   buzzerLoop();
   displayLoop();
+  busy = false;
+}
+
+void loop() {
+  backgroundTick();
+  webLoop();
   delay(2);
 }

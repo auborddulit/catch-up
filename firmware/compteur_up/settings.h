@@ -19,6 +19,7 @@ struct Settings {
   bool ntfyAlarms = true;
   bool ntfyShift = false;
   bool ntfyEnd = true;
+  bool ntfyReminder = true;  // rappel quotidien des lots non sauvegardés
   // calcul des UP
   float z = 6.94f;
   float tRef = 60.0f;

@@ -36,6 +36,7 @@ input[type=checkbox]{width:auto}.grid2{display:grid;grid-template-columns:1fr 1f
 <main>
 <section id="t-bord">
  <div id="alarms"></div>
+ <div class="card hide" id="saveCard"><h2>À sauvegarder sur le téléphone</h2><div id="saveList"></div></div>
  <div class="card" id="runCard">
   <div class="row"><h2 class="grow" id="runTitle">Repos</h2><span id="runInfo" class="mute"></span></div>
   <div class="tunnel" id="tunnel"></div>
@@ -104,6 +105,7 @@ input[type=checkbox]{width:auto}.grid2{display:grid;grid-template-columns:1fr 1f
 const $=s=>document.querySelector(s);
 const TABS=[['bord','Tableau de bord'],['session','Session'],['mesure','Mesure'],['hist','Historique'],['reglages','Réglages'],['etal','Étalonnage']];
 let st={},tab='bord',pass='',setLoaded=null;
+const focusDir=new URLSearchParams(location.search).get('lot')||'';
 function nav(){$('#nav').innerHTML=TABS.map(t=>`<a href="#" class="${t[0]==tab?'on':''}" onclick="go('${t[0]}');return false">${t[1]}</a>`).join('')}
 function go(t){tab=t;nav();TABS.forEach(x=>$('#t-'+x[0]).classList.toggle('hide',x[0]!=t));if(t=='hist')loadHist();render()}
 function toast(m,err){const e=$('#toast');e.textContent=m;e.className=err?'err':'';e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',err?6000:1800)}
@@ -134,6 +136,7 @@ function render(){
  const b=$('#bShift');b.classList.toggle('go',!!st.ready);b.disabled=!(ses||mes);b.textContent=st.ready?'DÉCALER':'DÉCALAGE';
  $('#eta').textContent=ses?(r.finished?'Toutes les caisses sont sorties : clôturer (onglet Session)':(!r.started?'Témoin dans la caisse 1, puis appuyer':(st.ready?'Décaler maintenant':'Décaler dans ~'+mmss(st.eta)))):(mes?(r.pos>=0?'Décalage nominal dans '+mmss(st.eta):(r.pos==-2?'Appuyer quand le témoin entre en place 1':'Témoin sorti : arrêter la mesure (onglet Mesure)')):'');
  $('#bUndo').classList.toggle('hide',!(r&&r.canUndo));$('#bEnd').classList.toggle('hide',!(ses&&r.started&&!r.entriesEnded));$('#bRem').classList.toggle('hide',!(ses&&r.nCrates>1&&!r.finished));$('#bAck').classList.toggle('hide',!(st.alarms||[]).length&&!st.ready);
+ const sv=st.aSauver||[];$('#saveCard').classList.toggle('hide',!sv.length);$('#saveList').innerHTML=sv.map(x=>`<div class="row" style="margin:4px 0"><span class="grow">Lot <b>${esc(x.lot)}</b> <span class="mute">clôturé le ${esc(x.cloture)}</span></span><a href="/zip?d=${encodeURIComponent(x.dir)}"><button class="pri">.zip</button></a><a href="/?lot=${encodeURIComponent(x.dir)}"><button>Commenter</button></a></div>`).join('');
  $('#outCard').classList.toggle('hide',!ses);
  if(ses)$('#outs').innerHTML='<tr><th>Caisse</th><th>Sortie</th><th class="num">UP</th><th></th><th>Statut</th></tr>'+(r.exited||[]).map(c=>`<tr><td>C${c.id}</td><td>${c.sortie}</td><td class="num">${f(c.up,2)}</td><td class="mute">${c.measured?'mesurées':'estimées'}</td><td class="${c.conforme?'ok':'nok'}">${c.conforme?'conforme':'NON CONFORME'}</td></tr>`).join('');
  $('#probes').innerHTML=st.probes.map(p=>`<tr><td>${p.name}</td><td class="num ${p.ok?'':'nok'}">${p.ok?f(p.v,2)+' °C':'absente'}</td></tr>`).join('');
@@ -143,8 +146,8 @@ function render(){
  if(st.mode=='repos'&&!$('#sLot').dataset.init){$('#sLot').dataset.init=1;fillDefaults()}
  if(st.mode!='repos')delete $('#sLot').dataset.init;
  if(ses)$('#sessState').textContent=r.finished?'Toutes les caisses sont sorties.':`${r.nOut} caisse(s) sortie(s) sur ${r.nCrates}. Il reste des caisses au bain : « Forcer » les rendra non conformes.`;
- const lc=st.lastClosed||'';
- $('#lastRep').classList.toggle('hide',!lc.startsWith('/sessions'));if($('#lastRep').dataset.d!==lc){$('#lastRep').dataset.d=lc;$('#lastRep').innerHTML=links(lc,'Dernier lot clôturé')+(lc?`<label>Ajouter un commentaire / une action corrective (horodaté, ajouté au relevé)</label><textarea id="cAdd" rows="2"></textarea><button style="margin-top:6px" onclick="addComment('${lc}',$('#cAdd').value)">Ajouter</button>`:'')}
+ const lc=focusDir||st.lastClosed||'';
+ $('#lastRep').classList.toggle('hide',!lc.startsWith('/sessions'));if($('#lastRep').dataset.d!==lc){$('#lastRep').dataset.d=lc;$('#lastRep').innerHTML=links(lc,focusDir?'Lot '+esc(lc.split('_').slice(1).join('_')):'Dernier lot clôturé')+(lc?`<label>Ajouter un commentaire / une action corrective (horodaté, ajouté au relevé)</label><textarea id="cAdd" rows="2"></textarea><button style="margin-top:6px" onclick="addComment('${lc}',$('#cAdd').value)">Ajouter</button>`:'')}
  $('#mesStart').classList.toggle('hide',st.mode!='repos');$('#mesRun').classList.toggle('hide',!mes);
  if(mes)$('#mesTable').innerHTML=`<tr><td>Position du témoin</td><td>${r.pos>=0?'place '+(r.pos+1):(r.pos==-2?'pas encore entré':'sorti du bain')}</td></tr><tr><td>Température témoin</td><td>${W(0)}</td></tr><tr><td>T° à l'entrée</td><td>${f(r.tw0,2)} °C</td></tr><tr><td>Temps place 1 / 2 / 3</td><td>${r.tPos.map(mmss).join(' / ')}</td></tr><tr><td><b>UP bain</b></td><td><b>${f(r.upBath,2)}</b></td></tr><tr><td>UP bain + air</td><td>${f(r.upTotal,2)}</td></tr><tr><td>Prévision du modèle (bain)</td><td>${f(r.upPred,2)}</td></tr>`;
  $('#lastMes').classList.toggle('hide',!lc.startsWith('/mesures'));$('#lastMes').innerHTML=links(lc,'Dernière mesure')+(lc.startsWith('/mesures')?`<button onclick="fit('${lc}')" style="margin-top:6px">Calibrer le modèle sur cette mesure</button>`:'');
@@ -153,7 +156,7 @@ function render(){
  $('#calTable').innerHTML='<tr><th></th><th>Sonde</th><th class="num">Brute</th><th class="num">Correction</th><th class="num">Corrigée</th></tr>'+st.probes.map((p,i)=>`<tr><td><input type="checkbox" class="calsel" value="${i}" ${document.querySelector('.calsel[value="'+i+'"]:checked')?'checked':''}></td><td>${p.name}</td><td class="num">${p.ok?f(p.raw,2):'–'}</td><td class="num">${f(p.offset,2)}</td><td class="num">${p.ok?f(p.v,2):'–'}</td></tr>`).join('');
 }
 function links(d,title){if(!d)return'';const u=p=>'/f?p='+encodeURIComponent(d+'/'+p);const s=d.startsWith('/sessions');
- return `<h2>${title}</h2><div class="row"><a href="${u('releve.html')}" target="_blank"><button class="pri">Relevé (imprimer / PDF)</button></a><a href="${u('data.csv')}"><button>data.csv</button></a>${s?`<a href="${u('caisses.csv')}"><button>caisses.csv</button></a>`:''}<a href="${u('events.csv')}"><button>events.csv</button></a></div>`}
+ return `<h2>${title}</h2><div class="row"><a href="/zip?d=${encodeURIComponent(d)}"><button class="pri">Sauvegarde .zip</button></a><a href="${u('releve.html')}" target="_blank"><button>Relevé (imprimer / PDF)</button></a><a href="${u('data.csv')}"><button>data.csv</button></a>${s?`<a href="${u('caisses.csv')}"><button>caisses.csv</button></a>`:''}<a href="${u('events.csv')}"><button>events.csv</button></a></div>`}
 function fillDefaults(){const d=st.def||{};$('#sLot').value=d.lot||'';$('#sProd').value=d.produit||'';$('#sOp').value=d.operateur||'';$('#sT0').value=d.t0??6;$('#sTarget').value=d.target??''}
 async function startSession(){const b={lot:$('#sLot').value.trim(),produit:$('#sProd').value,operateur:$('#sOp').value,t0:parseFloat($('#sT0').value),target:parseFloat($('#sTarget').value)};
  if(!b.lot)return toast('N° de lot obligatoire',true);if(isNaN(b.t0)||isNaN(b.target))return toast('T° de départ et cible obligatoires',true);
@@ -164,7 +167,7 @@ async function addComment(dir,c){if(!c||!c.trim())return toast('Commentaire vide
 async function loadHist(){const j=await api('/api/history');if(j.error)return toast(j.error,true);const it=(j.items||[]).sort((a,b)=>a.id<b.id?1:-1);
  $('#hist').innerHTML='<tr><th>Date</th><th>Type</th><th>Lot / notes</th><th>Résultat</th><th></th></tr>'+it.map(x=>{const u=p=>'/f?p='+encodeURIComponent(x.dir+'/'+p);const ses=x.type=='session';
  const res=ses?`<span class="${x.statut=='CONFORME'?'ok':(x.statut=='en cours'?'':'nok')}">${esc(x.statut)}</span> ${x.caisses??''} c. · min ${f(x.upMin,1)}`:`${f(x.upBain,2)} UP bain`;
- return `<tr><td>${esc(x.debut||x.id)}</td><td>${ses?'lot':'mesure'}</td><td>${esc(ses?x.lot:x.notes)}</td><td>${res}</td><td><a href="${u('releve.html')}" target="_blank">relevé</a> · <a href="${u('data.csv')}">csv</a>${ses?` · <a href="#" onclick="const c=prompt('Commentaire / action corrective pour le lot ${esc(x.lot)} :');if(c)addComment('${x.dir}',c);return false">commenter</a>`:` · <a href="#" onclick="fit('${x.dir}');return false">calibrer</a>`}</td></tr>`}).join('')}
+ return `<tr><td>${esc(x.debut||x.id)}</td><td>${ses?'lot':'mesure'}</td><td>${esc(ses?x.lot:x.notes)}${x.aSauver?' <span class="nok">· à sauvegarder</span>':''}</td><td>${res}</td><td><a href="/zip?d=${encodeURIComponent(x.dir)}">.zip</a> · <a href="${u('releve.html')}" target="_blank">relevé</a> · <a href="${u('data.csv')}">csv</a>${ses?` · <a href="#" onclick="const c=prompt('Commentaire / action corrective pour le lot ${esc(x.lot)} :');if(c)addComment('${x.dir}',c);return false">commenter</a>`:` · <a href="#" onclick="fit('${x.dir}');return false">calibrer</a>`}</td></tr>`}).join('')}
 async function fit(dir){toast('Calcul en cours…');const j=await api('/api/fit',{dir});go('mesure');const c=$('#fitCard');c.classList.remove('hide');
  if(j.k1===undefined){c.innerHTML='<h2>Étalonnage du modèle</h2><p class="nok">'+esc(j.error)+'</p>';return}
  c.innerHTML=`<h2>Étalonnage du modèle</h2><table><tr><td>Mesure</td><td>${esc(dir)}</td></tr><tr><td>Points au bain</td><td>${j.n} (pas ${f(j.dt,1)} s)</td></tr><tr><td>k1 / k2 proposés</td><td>${j.k1.toFixed(5)} / ${j.k2.toFixed(5)} /s</td></tr><tr><td>Écart moyen modèle / témoin</td><td>${f(j.rmse,2)} °C</td></tr><tr><td>UP mesurées (bain)</td><td>${f(j.upMeas,2)}</td></tr><tr><td>UP prévues par le nouveau modèle</td><td>${f(j.upPred,2)}</td></tr><tr><td>UP prévues par le modèle actuel</td><td>${f(j.upCurrent,2)}</td></tr></table>${j.error?'<p class="nok">'+esc(j.error)+'</p>':''}
@@ -172,7 +175,7 @@ async function fit(dir){toast('Calcul en cours…');const j=await api('/api/fit'
 async function applyModel(k1,k2,src){if(!pass)return toast('Ouvrir d\'abord l\'accès administrateur (Réglages)',true);await act('/api/model',{k1,k2,source:'étalonné sur la mesure '+src},'Remplacer le modèle actuel ?')}
 async function setTime(){await act('/api/time',{epoch:Math.floor(Date.now()/1000)})}
 const FIELDS=[['Réseau',[['wifiSsid','Wi-Fi : nom du réseau'],['wifiPass','Wi-Fi : mot de passe','password'],['adminPass','Mot de passe administrateur (4 car. min.)','password']]],
- ['Notifications ntfy',[['ntfyServer','Serveur'],['ntfyTopic','Sujet (long et difficile à deviner)'],['ntfyAlarms','Alarmes','checkbox'],['ntfyShift','Chaque décalage','checkbox'],['ntfyEnd','Fin de lot','checkbox']]],
+ ['Notifications ntfy',[['ntfyServer','Serveur'],['ntfyTopic','Sujet (long et difficile à deviner)'],['ntfyAlarms','Alarmes','checkbox'],['ntfyShift','Chaque décalage','checkbox'],['ntfyEnd','Fin de lot (avec bouton Télécharger)','checkbox'],['ntfyReminder','Rappel quotidien des lots non sauvegardés','checkbox']]],
  ['Calcul des UP',[['target','Cible par défaut (UP)','number'],['upMax','Alerte au-delà de (UP)','number'],['z','z (°C)','number'],['tRef','T° de référence (°C)','number'],['tCount','Seuil de comptage (°C)','number'],['nominalS','Décalage nominal – mode mesure / secours (s)','number'],['rAlarm','Alerte si mesure/modèle <','number']]],
  ['Lots',[['lotPrefix','Préfixe des n° de lot (ex. L)'],['lotNext','Prochain n° de lot','number'],['operateur','Opérateur par défaut'],['produit','Produit par défaut']]],
  ['Bain',[['bathMin','Alarme si eau sous (°C)','number'],['bathMinDelayS','pendant plus de (s)','number']]],
@@ -186,5 +189,5 @@ async function saveSettings(){const b={};FIELDS.forEach(g=>g[1].forEach(([k,l,t]
 async function calib(){if(!pass)return toast('Ouvrir d\'abord l\'accès administrateur (Réglages)',true);const sel=[...document.querySelectorAll('.calsel:checked')].map(e=>+e.value);
  const ref=parseFloat($('#calRef').value);if(isNaN(ref)||!sel.length)return toast('Saisir la référence et cocher des sondes',true);await act('/api/calib',{ref,sel},'Enregistrer les corrections ?')}
 async function calReset(){if(!pass)return toast('Ouvrir d\'abord l\'accès administrateur (Réglages)',true);await act('/api/calib',{reset:true},'Remettre toutes les corrections à zéro ?')}
-nav();refresh();setInterval(refresh,2000);
+nav();if(focusDir)go('session');refresh();setInterval(refresh,2000);
 </script></body></html>)HTML";

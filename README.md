@@ -5,7 +5,7 @@ Un appareil simple et peu coûteux (≈ 120 € de matériel) pour **mesurer et 
 - Une **bouteille témoin** remplie d'eau, avec une sonde au cœur, mesure les **UP réelles**. Formule : 1 UP = 1 min à 60 °C, z = 6,94 °C.
 - **Trois sondes dans le bain**, une par place du tunnel, alimentent une **bouteille virtuelle** pour chaque caisse. L'appareil indique **quand décaler** : dès que la caisse en sortie a atteint la cible.
 - La caisse témoin sert de **contrôle réel à chaque lot**. Si le modèle s'avère trop optimiste, la cible des caisses suivantes est **durcie automatiquement**. Elle n'est jamais assouplie.
-- **Relevé de fin de lot** pour la traçabilité : page imprimable ou PDF, plus des CSV (températures, UP de chaque caisse, événements, statut CONFORME / NON CONFORME).
+- **Relevé de fin de lot** pour la traçabilité : page imprimable ou PDF, plus des CSV (températures, UP de chaque caisse, événements, statut CONFORME / NON CONFORME). **Sauvegarde sur le téléphone** : notification avec boutons « Télécharger » (.zip du lot) et « Commenter », rappel quotidien tant qu'un lot n'est pas sauvegardé.
 - **Utilisable sans téléphone** : écran OLED 2,42", **gros bouton « DÉCALAGE »** et trois boutons **▲ ▼ OK** pour démarrer un lot (n° auto-incrémenté), corriger un appui et terminer le lot. Buzzer, page web locale, **notifications facultatives sur téléphone (ntfy)**, reprise automatique après une coupure de courant.
 
 <img src="docs/exemples/releve-lot-exemple.png" width="520" alt="Exemple de relevé de fin de lot">

@@ -11,6 +11,7 @@
 #include "storage.h"
 #include "app.h"
 #include "report.h"
+#include "archive.h"
 
 extern uint32_t g_ms, g_now;
 extern ProbeState g_probe[NPROBE];
@@ -114,6 +115,26 @@ int main() {
   CHECK(app.closeSession("RAS.", false).isEmpty(), "clôture");
   CHECK(SD.exists(sdir + "/releve.html") && SD.exists(sdir + "/caisses.csv") && SD.exists(sdir + "/meta.json"), "fichiers du relevé");
   CHECK(!SD.exists("/state.bin"), "état de reprise supprimé");
+  // sauvegarde sur le téléphone : lot en attente, .zip valide, puis retiré de la liste
+  CHECK(archiveIsPending(sdir), "lot clôturé à sauvegarder");
+  FILE* zf = fopen("lot.zip", "wb");
+  size_t zsize = zipFolder(sdir, [&](const uint8_t* b, size_t n) { return fwrite(b, 1, n, zf) == n; });
+  fclose(zf);
+  size_t zdry = zipFolder(sdir, [](const uint8_t*, size_t) { return true; }, true);
+  CHECK(zsize > 0 && zsize == zdry, "taille du .zip annoncée exacte (%u / %u)", (unsigned)zsize, (unsigned)zdry);
+  CHECK(system("python3 -c \"import zipfile,sys; z=zipfile.ZipFile('lot.zip'); assert z.testzip() is None; n=z.namelist(); print('  zip :', len(n), 'fichiers,', n[0]); assert any(x.endswith('releve.html') for x in n) and any(x.endswith('data.csv') for x in n)\"") == 0, "zip lisible et complet");
+  archiveDownloaded(sdir);
+  CHECK(!archiveIsPending(sdir), "lot retiré après téléchargement");
+  CHECK(app.addComment(sdir, "Contrôle visuel des caisses : RAS.").isEmpty(), "commentaire après clôture");
+  CHECK(archiveIsPending(sdir), "lot de nouveau à sauvegarder après un commentaire");
+  extern int g_notifs;
+  int before = g_notifs;
+  g_ms += 11 * 60 * 1000; archiveLoop();
+  CHECK(g_notifs == before, "pas de rappel avant 24 h");
+  g_now += 25 * 3600; g_ms += 11 * 60 * 1000; archiveLoop();
+  CHECK(g_notifs == before + 1, "rappel 24 h après");
+  g_ms += 11 * 60 * 1000; archiveLoop();
+  CHECK(g_notifs == before + 1, "un seul rappel par jour");
   printf("Relevés : out/sd%s/ et out/sd%s/\n", mdir.c_str(), sdir.c_str());
   printf("%s\n", fails ? "ÉCHECS" : "Simulation OK");
   return fails ? 1 : 0;

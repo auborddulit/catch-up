@@ -127,7 +127,21 @@ L'état est sauvegardé sur la carte SD toutes les 30 s et à chaque décalage. 
 
 ## 9. Archivage
 
-Chaque lot a son dossier sur la carte SD : `sessions/AAAAMMJJ-HHMM_LOT/`, qui contient `releve.html`, `data.csv`, `caisses.csv`, `events.csv` et `meta.json`. L'appareil **ne supprime jamais rien**. Chaque mois, copiez la carte sur un ordinateur et conservez la copie aussi longtemps que l'exige votre plan HACCP (au moins la durée de vie du produit + 6 mois, souvent plusieurs années).
+Chaque lot a son dossier sur la carte SD : `sessions/AAAAMMJJ-HHMM_LOT/`, qui contient `releve.html`, `data.csv`, `caisses.csv`, `events.csv` et `meta.json`. L'appareil **ne supprime jamais rien**. La carte reste l'original ; il faut en garder **une copie ailleurs**.
+
+**Sauvegarde sur le téléphone, lot par lot**
+
+1. À la clôture d'un lot, le téléphone reçoit une notification ntfy « Lot L0128 CONFORME » avec deux boutons :
+   - **Commenter** : ouvre le lot sur la page web pour ajouter un commentaire ou une action corrective ;
+   - **Télécharger** : enregistre **un seul fichier .zip** (relevé, caisses, journal, data.csv, meta.json), commentaires compris.
+2. Le téléphone doit être sur le **Wi-Fi de l'atelier** : les données ne quittent pas l'appareil, seul le texte de la notification passe par Internet.
+3. Si un commentaire est ajouté **après** le téléchargement, une nouvelle notification « relevé mis à jour » arrive : retéléchargez le .zip.
+4. Tant qu'un lot n'est pas téléchargé, il apparaît dans **« À sauvegarder »** (tableau de bord) et l'appareil envoie un **rappel chaque jour**, 24 h après la clôture. Le téléchargement est tracé dans `events.csv` (« SAUVEGARDE »).
+5. Rangez les .zip dans un dossier sauvegardé du téléphone (Fichiers, Google Drive, iCloud…) ou transférez-les sur un ordinateur.
+
+Les .zip se téléchargent aussi depuis l'onglet *Historique*, pour n'importe quel lot ou essai.
+
+**En complément**, copiez la carte SD entière sur un ordinateur chaque trimestre. Conservez les copies aussi longtemps que l'exige votre plan HACCP (au moins la durée de vie du produit + 6 mois, souvent plusieurs années).
 
 ## 10. Réglages (référence)
 

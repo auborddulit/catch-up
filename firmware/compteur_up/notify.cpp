@@ -60,6 +60,9 @@ struct Msg {
   char body[200];
   uint8_t prio;    // 1 (min) à 5 (urgent)
   char tags[32];
+  uint8_t nAct;
+  char actLabel[2][24];
+  char actUrl[2][160];
 };
 
 static QueueHandle_t q;
@@ -76,6 +79,13 @@ static void sendOne(const Msg& m) {
   d["message"] = m.body;
   d["priority"] = m.prio;
   if (m.tags[0]) d["tags"].add(m.tags);
+  for (int i = 0; i < m.nAct; i++) {
+    JsonObject a = d["actions"].add<JsonObject>();
+    a["action"] = "view";
+    a["label"] = m.actLabel[i];
+    a["url"] = m.actUrl[i];
+  }
+  if (m.nAct) d["click"] = m.actUrl[0];
   String payload;
   serializeJson(d, payload);
   HTTPClient http;
@@ -107,13 +117,20 @@ void notifyBegin() {
   xTaskCreatePinnedToCore(task, "ntfy", 12288, nullptr, 1, nullptr, 0);
 }
 
-void notify(const String& title, const String& body, uint8_t prio, const char* tags) {
+void notify(const String& title, const String& body, uint8_t prio, const char* tags,
+            const NotifyAction* actions, int nActions) {
   if (!q || !settings.ntfyTopic[0]) return;
   Msg m;
   strlcpy(m.title, title.c_str(), sizeof m.title);
   strlcpy(m.body, body.c_str(), sizeof m.body);
   m.prio = prio;
   strlcpy(m.tags, tags ? tags : "", sizeof m.tags);
+  m.nAct = 0;
+  for (int i = 0; i < nActions && i < 2; i++) {
+    strlcpy(m.actLabel[i], actions[i].label, sizeof m.actLabel[i]);
+    strlcpy(m.actUrl[i], actions[i].url.c_str(), sizeof m.actUrl[i]);
+    m.nAct++;
+  }
   xQueueSend(q, &m, 0);   // file pleine : message perdu plutôt que bloquer
 }
 
