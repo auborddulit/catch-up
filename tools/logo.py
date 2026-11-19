@@ -1,8 +1,8 @@
 # Logo « Catch-UP » en pixels (128×64 OLED) : source unique, dessinée à la main.
 #   python3 tools/logo.py
 # Écrit :
-#   firmware/compteur_up/logo.h   bitmaps XBM pour U8g2 (logo complet + bouteille seule)
-#   firmware/compteur_up/web_ui.h logo et icône de la page web (entre les marqueurs LOGO / ICONE)
+#   firmware/catch_up/logo.h   bitmaps XBM pour U8g2 (logo complet + bouteille seule)
+#   firmware/catch_up/web_ui.h logo et icône de la page web (entre les marqueurs LOGO / ICONE)
 #   docs/logo/catch-up.svg, catch-up-bouteille.svg, catch-up.png, catch-up-ecran.png
 import os, re, sys
 
@@ -246,7 +246,7 @@ def png(px, path, scale, fg=(0, 0, 0), bg=(255, 255, 255), frame=None):
 
 def main():
     L, B = logo(), bottle()
-    fw = os.path.join(ROOT, "firmware", "compteur_up")
+    fw = os.path.join(ROOT, "firmware", "catch_up")
     with open(os.path.join(fw, "logo.h"), "w") as f:
         f.write("// logo.h — Logo « Catch-UP » en pixels (généré par tools/logo.py, ne pas modifier à la main).\n"
                 "#pragma once\n#include <Arduino.h>\n\n" + xbm("LOGO", L) + "\n" + xbm("BOUTEILLE", B))

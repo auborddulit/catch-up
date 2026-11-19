@@ -10,7 +10,7 @@ a('<style>.box{fill:#f7f9fc;stroke:#334;stroke-width:1.5}.esp{fill:#e8f0fe;strok
   '.r{stroke:#d32f2f;stroke-width:2;fill:none}.k{stroke:#222;stroke-width:2;fill:none}.b{stroke:#1565c0;stroke-width:2;fill:none}'
   '.p{stroke:#6a1b9a;stroke-width:2;fill:none}.o{stroke:#e08600;stroke-width:2;fill:none}.g{stroke:#2e7d32;stroke-width:2;fill:none}'
   '.t{fill:#111}.s{font-size:11px;fill:#444}.h{font-size:15px;font-weight:bold}.res{fill:#fff;stroke:#a15c00;stroke-width:1.5}</style>')
-a('<text x="20" y="28" class="h">compteur-up — plan de câblage (ESP32 DevKit, firmware v1.2)</text>')
+a('<text x="20" y="28" class="h">Catch-UP — plan de câblage (ESP32 DevKit, firmware v1.2)</text>')
 a('<text x="20" y="46" class="s">Rouge : 3,3 V · Noir : GND · Bleu : 1-Wire et boutons · Violet : I2C · Orange : SPI (carte SD + écran) · Vert : 5 V. Toutes les masses sont communes.</text>')
 
 # ESP32
@@ -85,7 +85,7 @@ a(f'<line x1="{ex+ew}" y1="640" x2="{bx}" y2="640" class="b"/>')
 box(705, 72, "Alimentation 5 V", ["→ VIN et GND (ou prise USB de la carte)", "prise sous différentiel 30 mA"])
 a(f'<line x1="{ex+ew}" y1="700" x2="{bx}" y2="728" class="g"/>')
 a(f'<polyline points="{ex+ew},700 790,700 790,262 {bx},262" class="g"/><circle cx="790" cy="700" r="3" fill="#2e7d32"/>')
-a('<text x="20" y="840" class="s">Brochage défini dans firmware/compteur_up/config.h. Variante écran 1,3" SH1106 I2C : SDA 21 / SCL 22, et commenter DISPLAY_SSD1309_SPI.</text>')
+a('<text x="20" y="840" class="s">Brochage défini dans firmware/catch_up/config.h. Variante écran 1,3" SH1106 I2C : SDA 21 / SCL 22, et commenter DISPLAY_SSD1309_SPI.</text>')
 a('</svg>')
 svg = "\n".join(o)
 open("docs/cablage.svg", "w").write(svg)

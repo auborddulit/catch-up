@@ -64,8 +64,8 @@ h2{{margin:0 0 8px;font-size:19px}}
 .pb{{margin-top:6px;font-size:14px;line-height:19px;border-top:1px solid #c9c7bf}} .pb td{{padding:5px 10px 5px 0;border-bottom:1px solid #c9c7bf;vertical-align:top}} .pb .k{{font-weight:600;width:36%}}
 .ft{{position:absolute;left:44px;width:706px;bottom:36px;border-top:1px solid #c9c7bf;padding-top:8px;font-size:13px;line-height:18px;color:#3d3d3a}}
 </style></head><body><div class="page">
-<table class="hd"><tr><td><div class="kick">PASTEURISATION · FICHE OPÉRATEUR</div><h1>Le compteur UP en 1 minute</h1></td>
-<td class="addr">Boutons : <b style="color:#141413">▲ ▼ OK</b> + <b style="color:#141413">DÉCALAGE</b><br>Relevés : <b style="color:#141413">http://compteur-up.local</b></td></tr></table>
+<table class="hd"><tr><td><div class="kick">PASTEURISATION · FICHE OPÉRATEUR</div><h1>Catch-UP en 1 minute</h1></td>
+<td class="addr">Boutons : <b style="color:#141413">▲ ▼ OK</b> + <b style="color:#141413">DÉCALAGE</b><br>Relevés : <b style="color:#141413">http://catch-up.local</b></td></tr></table>
 <table class="sig"><tr>
 <td class="g"><div class="l">1 BIP / SECONDE · ÉCRAN CLIGNOTANT</div><div class="b">DÉCALER</div>Décaler, puis <b>appuyer sur DÉCALAGE</b>.</td>
 <td class="r"><div class="l">3 BIPS RAPIDES · ÉCRAN CLIGNOTANT</div><div class="b">ALARME</div>Lire l'écran. <b>OK</b> = acquitter.</td>

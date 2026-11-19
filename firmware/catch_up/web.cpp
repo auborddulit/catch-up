@@ -280,7 +280,7 @@ static void hTime() {
 
 static void hTestNtfy() {
   if (!admin()) return;
-  notify("Test compteur-up", "Les notifications fonctionnent.", 3, "bell");
+  notify("Test Catch-UP", "Les notifications fonctionnent.", 3, "bell");
   reply("");
 }
 

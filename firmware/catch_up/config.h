@@ -2,7 +2,7 @@
 #pragma once
 
 #define FW_VERSION "1.4.0"
-#define DEVICE_NAME "compteur-up"   // nom réseau : http://compteur-up.local
+#define DEVICE_NAME "catch-up"   // nom réseau : http://catch-up.local
 
 // --- Sondes DS18B20 : une broche (un bus 1-Wire) par sonde -----------------
 // Chaque sonde est identifiée par sa prise : pas d'adresse à configurer.
@@ -52,5 +52,5 @@
 #define TZ_PARIS         "CET-1CEST,M3.5.0,M10.5.0/3"
 
 // --- Réseau de secours (si le Wi-Fi configuré est absent) --------------------
-#define AP_SSID   "CompteurUP"
+#define AP_SSID   "CatchUP"
 #define AP_PASS   "pasteur2026"     // 8 caractères minimum

@@ -1,4 +1,4 @@
-# HACCP : utiliser compteur-up pour surveiller le CCP « pasteurisation »
+# HACCP : utiliser Catch-UP pour surveiller le CCP « pasteurisation »
 
 Cette page résume comment l'appareil s'intègre dans un plan HACCP. C'est un modèle à adapter à votre produit et à votre procédé. Il ne remplace ni la validation par un laboratoire ou un centre technique, ni votre propre analyse des dangers.
 

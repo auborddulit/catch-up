@@ -276,7 +276,7 @@ bool writeSessionReport(const RunMeta& m, const up::Session& s, const String& co
          : String("aucune (modèle prudent ou exact)"));
   }
   modelRows(o);
-  kv(o, "Appareil", String("compteur-up v") + FW_VERSION);
+  kv(o, "Appareil", String("Catch-UP v") + FW_VERSION);
   o.print("</table>");
 
   o.print("<h2>Températures de l'eau</h2><table><tr><th>Sonde</th><th class='num'>Min</th><th class='num'>Moyenne</th><th class='num'>Max</th></tr>");
@@ -322,7 +322,7 @@ bool writeSessionReport(const RunMeta& m, const up::Session& s, const String& co
   o.print("<h2>Commentaires et actions correctives</h2><p>");
   o.print(comment.length() ? htmlEsc(comment) : String("Aucun."));
   o.print("</p><!--AJOUTS--><h2>Visa</h2><table class='sign'><tr><th>Vérifié par</th><th>Date</th><th>Signature</th></tr><tr><td></td><td></td><td></td></tr></table>");
-  o.printf("<p class='small'>Relevé généré le %s par compteur-up v%s. Données brutes : data.csv, caisses.csv, events.csv (dossier %s).</p>",
+  o.printf("<p class='small'>Relevé généré le %s par Catch-UP v%s. Données brutes : data.csv, caisses.csv, events.csv (dossier %s).</p>",
            fmtDateTime(tEnd).c_str(), FW_VERSION, htmlEsc(dir).c_str());
   o.print("</body></html>");
   o.close();
@@ -350,14 +350,14 @@ bool writeMesureReport(const RunMeta& m, const up::Measure& me, const String& co
   kv(o, "UP au cœur – bain + air", f(me.upTotal, 2));
   kv(o, "UP prévues par le modèle actuel (bain)", f(me.upPred, 2));
   modelRows(o);
-  kv(o, "Appareil", String("compteur-up v") + FW_VERSION);
+  kv(o, "Appareil", String("Catch-UP v") + FW_VERSION);
   o.print("</table>");
   int ser[4] = {0, 1, 2, 3};
   svgChart(o, sc, ser, 4, 0, 80, "Témoin et bain (°C)");
   eventsTable(o, dir);
   o.print("<h2>Commentaires</h2><p>");
   o.print(comment.length() ? htmlEsc(comment) : String("Aucun."));
-  o.printf("</p><p class='small'>Généré le %s par compteur-up v%s. Données brutes : data.csv.</p></body></html>",
+  o.printf("</p><p class='small'>Généré le %s par Catch-UP v%s. Données brutes : data.csv.</p></body></html>",
            fmtDateTime(tEnd).c_str(), FW_VERSION);
   o.close();
   return true;

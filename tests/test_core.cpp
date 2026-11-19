@@ -1,5 +1,5 @@
 // Tests sur PC du cœur de calcul.
-//   g++ -std=c++17 -O2 -I../firmware/compteur_up test_core.cpp ../firmware/compteur_up/up_core.cpp -o test_core && ./test_core
+//   g++ -std=c++17 -O2 -I../firmware/catch_up test_core.cpp ../firmware/catch_up/up_core.cpp -o test_core && ./test_core
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>

@@ -1,4 +1,4 @@
-# compteur-up — compteur d'unités de pasteurisation open source (ESP32)
+# Catch-UP — compteur d'unités de pasteurisation open source (ESP32)
 
 <img src="docs/logo/catch-up.png" width="300" alt="Catch-UP">
 
@@ -42,7 +42,7 @@ Captures produites par le vrai code du firmware (`tests/test_ecrans.cpp`) :
 
 | Dossier | Contenu |
 |---|---|
-| `firmware/compteur_up/` | Firmware ESP32 (Arduino). S'ouvre directement dans l'IDE Arduino. |
+| `firmware/catch_up/` | Firmware ESP32 (Arduino). S'ouvre directement dans l'IDE Arduino. |
 | `firmware/platformio.ini` | Pour compiler avec PlatformIO (facultatif). |
 | `firmware/bin/` | Firmware précompilé, à flasher sans rien installer. |
 | `docs/` | Matériel, câblage, installation, utilisation, principe de calcul, HACCP. |
@@ -51,7 +51,7 @@ Captures produites par le vrai code du firmware (`tests/test_ecrans.cpp`) :
 
 ## Démarrage rapide
 
-Télécharger le projet : `git clone https://github.com/auborddulit/compteur-UP.git` (ou *Code → Download ZIP* sur GitHub).
+Télécharger le projet : `git clone https://github.com/auborddulit/catch-up.git` (ou *Code → Download ZIP* sur GitHub).
 
 1. Acheter le matériel : [docs/materiel.md](docs/materiel.md).
 2. Câbler : [docs/cablage.md](docs/cablage.md).

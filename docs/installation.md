@@ -12,6 +12,7 @@ Formatez-la en **FAT32**, puis insérez-la dans le lecteur. L'appareil crée lui
 2. Ouvrez **https://espressif.github.io/esptool-js/**, cliquez sur *Connect* et choisissez le port de la carte.
 3. Cliquez sur *Erase Flash*, puis attendez la fin.
 4. Dans *Flash Address* mettez **0x0**, choisissez le fichier `firmware/bin/compteur-up-v1.3.0-esp32-merged.bin`, puis cliquez sur *Program*.
+   *Ce binaire est encore la v1.3.0, sous l'ancien nom : réseau de secours « CompteurUP », adresse http://compteur-up.local. Pour la v1.4.0 (nom Catch-UP, logo), compilez avec l'option B en attendant le binaire.*
 5. Débranchez et rebranchez la carte.
 
 ### Option B : compiler avec l'IDE Arduino (2.x)
@@ -25,7 +26,7 @@ Formatez-la en **FAT32**, puis insérez-la dans le lecteur. L'appareil crée lui
    - **U8g2** (olikraus)
    - **RTClib** (Adafruit), en acceptant l'installation d'*Adafruit BusIO*
    - **ArduinoJson** (Benoit Blanchon), **version 7**
-4. Ouvrez `firmware/compteur_up/compteur_up.ino`.
+4. Ouvrez `firmware/catch_up/catch_up.ino`.
 5. *Outils* :
    - Carte : **ESP32 Dev Module**
    - Partition Scheme : **Huge APP (3MB No OTA/1MB SPIFFS)**. Indispensable : le firmware ne tient pas dans la partition par défaut.
@@ -39,7 +40,7 @@ Formatez-la en **FAT32**, puis insérez-la dans le lecteur. L'appareil crée lui
 
 À la première mise sous tension, aucun Wi-Fi n'est configuré. L'appareil crée donc son propre réseau :
 
-- réseau **`CompteurUP`**, mot de passe **`pasteur2026`** ;
+- réseau **`CatchUP`**, mot de passe **`pasteur2026`** ;
 - ouvrez **http://192.168.4.1** sur le téléphone.
 
 Ensuite :
@@ -47,7 +48,7 @@ Ensuite :
 1. Onglet **Réglages** → mot de passe administrateur **`pasteur`** → *Ouvrir*.
 2. Renseignez le **Wi-Fi de l'atelier** et changez le **mot de passe administrateur**.
 3. Cliquez sur *Enregistrer*, puis sur *Redémarrer*.
-4. L'écran affiche maintenant l'adresse IP. La page est aussi accessible à **http://compteur-up.local** (selon le téléphone).
+4. L'écran affiche maintenant l'adresse IP. La page est aussi accessible à **http://catch-up.local** (selon le téléphone).
 
 > Les mots de passe par défaut (`pasteur2026` pour le réseau de secours, `pasteur` pour l'administration) se changent dans `config.h` et dans les Réglages. Le réseau de secours ne s'active que si le Wi-Fi de l'atelier est introuvable au démarrage.
 

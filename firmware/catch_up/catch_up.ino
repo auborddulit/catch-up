@@ -1,10 +1,10 @@
-// compteur_up.ino — Compteur d'unités de pasteurisation (UP) open source pour ESP32.
+// catch_up.ino — Compteur d'unités de pasteurisation (UP) open source pour ESP32.
 //
 // Une bouteille témoin mesure les UP réelles au cœur du produit ; trois sondes
 // dans le bain alimentent une « bouteille virtuelle » par caisse pour indiquer
 // quand décaler les caisses dans un tunnel manuel à 3 places.
 //
-// Projet : https://github.com/auborddulit/compteur-UP       Licence : MIT
+// Projet : https://github.com/auborddulit/catch-up       Licence : MIT
 #include <Arduino.h>
 #include <Wire.h>
 #include <WiFi.h>
@@ -33,7 +33,7 @@ static void wifiBegin() {
     while (WiFi.status() != WL_CONNECTED && millis() - t < 15000) delay(200);
   }
   if (WiFi.status() != WL_CONNECTED) {
-    // réseau de secours : se connecter à « CompteurUP » puis http://192.168.4.1
+    // réseau de secours : se connecter à « CatchUP » puis http://192.168.4.1
     WiFi.mode(WIFI_AP_STA);
     WiFi.softAP(AP_SSID, AP_PASS);
     if (settings.wifiSsid[0]) WiFi.begin(settings.wifiSsid, settings.wifiPass);  // continue d'essayer
@@ -44,7 +44,7 @@ static void wifiBegin() {
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("\ncompteur-up v" FW_VERSION);
+  Serial.println("\nCatch-UP v" FW_VERSION);
   settingsLoad();
   Wire.begin(PIN_I2C_SDA, PIN_I2C_SCL);
   ioBegin();

@@ -1,6 +1,6 @@
 # Tests sur PC (Linux / macOS / WSL). Nécessite g++ et ArduinoJson 7 :
 #   make ARDUINOJSON=/chemin/vers/ArduinoJson/src
-FW = ../firmware/compteur_up
+FW = ../firmware/catch_up
 ARDUINOJSON ?= $(HOME)/Arduino/libraries/ArduinoJson/src
 U8G2 ?= $(HOME)/Arduino/libraries/U8g2/src/clib
 CXXFLAGS = -std=c++17 -O1 -Wall -Wno-unused-parameter

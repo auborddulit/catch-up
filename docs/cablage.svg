@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 860" font-family="Arial, Helvetica, sans-serif" font-size="13">
 <rect width="100%" height="100%" fill="#fff"/>
 <style>.box{fill:#f7f9fc;stroke:#334;stroke-width:1.5}.esp{fill:#e8f0fe;stroke:#1a4fa0;stroke-width:2}.r{stroke:#d32f2f;stroke-width:2;fill:none}.k{stroke:#222;stroke-width:2;fill:none}.b{stroke:#1565c0;stroke-width:2;fill:none}.p{stroke:#6a1b9a;stroke-width:2;fill:none}.o{stroke:#e08600;stroke-width:2;fill:none}.g{stroke:#2e7d32;stroke-width:2;fill:none}.t{fill:#111}.s{font-size:11px;fill:#444}.h{font-size:15px;font-weight:bold}.res{fill:#fff;stroke:#a15c00;stroke-width:1.5}</style>
-<text x="20" y="28" class="h">compteur-up — plan de câblage (ESP32 DevKit, firmware v1.2)</text>
+<text x="20" y="28" class="h">Catch-UP — plan de câblage (ESP32 DevKit, firmware v1.2)</text>
 <text x="20" y="46" class="s">Rouge : 3,3 V · Noir : GND · Bleu : 1-Wire et boutons · Violet : I2C · Orange : SPI (carte SD + écran) · Vert : 5 V. Toutes les masses sont communes.</text>
 <rect x="430" y="80" width="230" height="700" rx="10" class="esp"/>
 <text x="545.0" y="106" text-anchor="middle" class="h">ESP32 DevKit</text>
@@ -114,5 +114,5 @@
 <text x="830" y="758" class="s">prise sous différentiel 30 mA</text>
 <line x1="660" y1="700" x2="820" y2="728" class="g"/>
 <polyline points="660,700 790,700 790,262 820,262" class="g"/><circle cx="790" cy="700" r="3" fill="#2e7d32"/>
-<text x="20" y="840" class="s">Brochage défini dans firmware/compteur_up/config.h. Variante écran 1,3" SH1106 I2C : SDA 21 / SCL 22, et commenter DISPLAY_SSD1309_SPI.</text>
+<text x="20" y="840" class="s">Brochage défini dans firmware/catch_up/config.h. Variante écran 1,3" SH1106 I2C : SDA 21 / SCL 22, et commenter DISPLAY_SSD1309_SPI.</text>
 </svg>
