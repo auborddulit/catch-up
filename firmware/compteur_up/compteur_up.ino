@@ -52,7 +52,8 @@ void setup() {
   pinMode(PIN_SD_CS, OUTPUT);
   digitalWrite(PIN_SD_CS, HIGH);
   displayBegin();
-  displayMessage("Compteur UP", "v" FW_VERSION);
+  displaySplash();
+  delay(1500);                         // laisser le logo visible
   if (!sdBegin()) Serial.println("Carte SD absente");
   clockBegin();
   sensorsBegin();

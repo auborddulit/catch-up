@@ -16,6 +16,7 @@
 #include "sensors.h"
 #include "clock.h"
 #include "config.h"
+#include "logo.h"
 
 #ifdef ARDUINO
 #include <U8g2lib.h>
@@ -515,5 +516,19 @@ void displayMessage(const char* l1, const char* l2) {
   font(F_MED);
   textC(28, l1);
   if (l2) { font(F_SMALL); textC(46, l2); }
+  u8g2_SendBuffer(g);
+}
+
+// Écran de démarrage : logo en pixels (tools/logo.py), nom et version au-dessus de « Catch ».
+void displaySplash() {
+  if (!g) return;
+  u8g2_ClearBuffer(g);
+  u8g2_SetFontMode(g, 1);
+  u8g2_SetDrawColor(g, 1);
+  const int x = (128 - LOGO_W) / 2, y = 64 - LOGO_H - 2;
+  u8g2_DrawXBMP(g, x, y, LOGO_W, LOGO_H, LOGO_BITS);
+  font(F_SMALL);
+  text(x, y + 10, "compteur UP");
+  text(x, y + 21, "v" FW_VERSION);
   u8g2_SendBuffer(g);
 }

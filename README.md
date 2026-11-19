@@ -1,5 +1,9 @@
 # compteur-up — compteur d'unités de pasteurisation open source (ESP32)
 
+<img src="docs/logo/catch-up.png" width="300" alt="Catch-UP">
+
+Surnom de l'appareil : **Catch-UP**. Le logo est dessiné en pixels pour l'écran 128×64 ; il s'affiche au démarrage et en bas de la page web (`tools/logo.py` le régénère).
+
 Un appareil simple et peu coûteux (≈ 120 € de matériel) pour **mesurer et piloter la pasteurisation en bouteille** dans un bain-marie conduit comme un tunnel manuel. Il s'inspire du *Pasteurization Computer* de Craft Metrics.
 
 - Une **bouteille témoin** remplie d'eau, avec une sonde au cœur, mesure les **UP réelles**. Formule : 1 UP = 1 min à 60 °C, z = 6,94 °C.

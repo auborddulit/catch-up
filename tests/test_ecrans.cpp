@@ -29,8 +29,8 @@ static uint8_t dummyGpio(u8x8_t*, uint8_t, uint8_t, void*) { return 1; }
 // tampon complet SSD1309 : octet (y/8)*128 + x, bit y%8
 static int pixel(int x, int y) { return (u8g2_GetBufferPtr(&u8)[(y / 8) * 128 + x] >> (y % 8)) & 1; }
 
-static void shot(const char* name) {
-  displayDraw();
+static void shot(const char* name, bool draw = true) {
+  if (draw) displayDraw();
   std::string p = std::string("ecrans/") + name + ".pbm";
   FILE* f = fopen(p.c_str(), "w");
   fprintf(f, "P1\n128 64\n");
@@ -61,6 +61,9 @@ int main() {
   settings.target = 33;
   settings.lotNext = 128;
   strlcpy(settings.operateur, "Camille", sizeof settings.operateur);
+  displaySplash();
+  shot("00-demarrage", false);
+  CHECK(pixel(14 + 71, 2 + 30) == 1 && pixel(14 + 74, 2 + 30) == 0, "logo dessiné en place (bouteille, creux du U)");
   setProbes(5.9f, 66.2f, 67.1f, 68.0f);
   tick();
   shot("01-repos");
